@@ -19,10 +19,12 @@ class Scene{
 		void clean();
 		bool running(){ return isRunning; }
 		
+		static SDL_Renderer* renderer;
+		
 	protected:
 		bool isRunning = false;
 		SDL_Window *window = NULL;
-		SDL_Renderer *renderer = NULL;
+
 };
 
 #endif

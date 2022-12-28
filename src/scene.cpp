@@ -7,6 +7,8 @@ GameObject* player;
 
 float counter = 0;
 
+SDL_Renderer* Scene::renderer = nullptr;
+
 Scene::Scene(){}
 Scene::~Scene(){}
 		
@@ -35,7 +37,7 @@ void Scene::init(const char* title, int xpos, int ypos, int width, int height, b
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				this->isRunning = true;
 					
-				player = new GameObject("assets/player.png", renderer, 0, 0, 28*2, 22*2);
+				player = new GameObject("assets/player.png", 0, 0, 28*2, 22*2);
 				player->setSrcRect(0, 0, 28, 22);
 			}
 		}
@@ -73,6 +75,8 @@ void Scene::clean(){
 	SDL_DestroyRenderer(renderer);
 	this->renderer = NULL;
 	SDL_Quit();
+	
+	
 
 }
 
