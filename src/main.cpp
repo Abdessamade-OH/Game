@@ -1,4 +1,4 @@
-#include "./header/scene.h"
+#include "./header/gameHeader.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -9,7 +9,7 @@ using namespace std;
 Scene *game = NULL;
 
 int main(int argc, char* argv[]){
-
+	GameScene currentScene = MAINMENU;
 	const int FPS = 30;
 	const int frameDelay = 1000/FPS; //we get the delta time for 60 FPS in ms (that's why we multiply by a 1000)
 	
@@ -24,21 +24,18 @@ int main(int argc, char* argv[]){
 		//we get the time at when the frame starts
 		frameStart = SDL_GetTicks();
 	
-		/*switch(currentScene){ //current scene will be an enum with three possibilites {mainMenu, levelMenu, levels} 
-			case menu:
+		switch(currentScene){ //current scene will be an enum with three possibilites {mainMenu, levelMenu, levels} 
+			case MAINMENU:
 				break;
-			case level1:
-				break;
-			case level2:
-				break;
-			case level3:
+			
+			case LEVELMENU:
 				break;
 				
-			//or
-			case levels:
-				int levelnum = levelMenu->selectedLevel;
-				level[levelnum]->init();
-		}*/
+			case LEVELS:
+				//int levelnum = levelMenu->selectedLevel;
+				//level[levelnum]->init();
+				break;
+		}
 		game->handleEvents();
 		game->update();
 		game->render();
