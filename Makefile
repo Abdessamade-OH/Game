@@ -1,4 +1,4 @@
-OBJS = src/main.cpp src/game.cpp src/TextureManager.cpp src/GameObject.cpp
+OBJS = src/main.cpp src/game.cpp src/TextureManager.cpp src/GameObject.cpp src/menuScene.cpp
 
 CC = g++
 

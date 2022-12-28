@@ -8,17 +8,18 @@ class MenuScene {
 		MenuScene();
 		~MenuScene();
 		
-		void init();
+		void init(const char* filename);
 		void update();
 		void render();
 		void handleEvents(); 
 		//int selected(){return selected}//returns selected scene
 		void clean();
 		bool running(){return isRunning;}
+		GameScene getSelected(){return selected;}
 	
 	private:
 		SDL_Texture* backgroundImage;
 		//vector<MenuItem> menuItems;
 		bool isRunning;
-		//int selected;
+		GameScene selected;
 };

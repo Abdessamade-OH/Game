@@ -5,7 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-typedef enum {MAINMENU, LEVELMENU, LEVELS} GameScene; 
+typedef enum {QUIT, MAINMENU, LEVELMENU, LEVELS} GameScene; 
 
 class Game{
 
@@ -20,7 +20,7 @@ class Game{
 		void render();
 		void clean();
 		bool running(){ return isRunning; }
-		
+		void setRunning(bool state){this->isRunning = state;};
 		static SDL_Renderer* renderer;
 		
 	protected:

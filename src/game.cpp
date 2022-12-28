@@ -3,7 +3,7 @@
 #include "./header/GameObject.h"
 using namespace std;
 
-GameObject* player;
+//GameObject* player;
 
 float counter = 0;
 
@@ -28,17 +28,19 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 			cout<<"SDL_CreateWindow Error: "<<SDL_GetError()<<endl;
 		}
 		else{
+			cout<<"Window created."<<endl;
 			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 				
 			if(renderer == nullptr){
 				cout<<"SDL_CreateRenderer Error: "<<SDL_GetError()<<endl;
 			}
 			else{
+				cout<<"renderer created."<<endl;
 				SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				this->isRunning = true;
-					
-				player = new GameObject("assets/player.png", 0, 0, 28*2, 22*2);
-				player->setSrcRect(0, 0, 28, 22);
+				
+				//player = new GameObject("assets/player.png", 0, 0, 28*2, 22*2);
+				//player->setSrcRect(0, 0, 28, 22);
 			}
 		}
 	}
@@ -60,13 +62,13 @@ void Game::handleEvents(){
 	
 void Game::update(){
 	counter++;
-	player->update();
+	//player->update();
 	cout<<counter<<endl;
 }
 	
 void Game::render(){
 	SDL_RenderClear(renderer);
-	player->render();
+//	player->render();
 	SDL_RenderPresent(renderer);
 }
 	

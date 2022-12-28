@@ -1,4 +1,5 @@
 #include "./header/gameHeader.h"
+#include "./header/menuScene.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -15,6 +16,8 @@ int main(int argc, char* argv[]){
 	
 	Uint32 frameStart;
 	int frameTime;
+	
+	MenuScene* mainMenu = new MenuScene();
 
 	game = new Game();
 	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
@@ -24,10 +27,21 @@ int main(int argc, char* argv[]){
 		//we get the time at when the frame starts
 		frameStart = SDL_GetTicks();
 	
-		switch(currentScene){ //current scene will be an enum with three possibilites {mainMenu, levelMenu, levels} 
-			case MAINMENU:
-				
+		switch(currentScene){ //current scene will be an enum with three possibilites {mainMenu, levelMenu, levels} 	
+			case QUIT:
+				game->setRunning(false);
 				break;
+			case MAINMENU:{
+				cout<<"Inside mainMenu"<<endl;
+				mainMenu->init("assets/MenuImage.png");
+				while(mainMenu->running()){
+					mainMenu->render();
+					mainMenu->handleEvents();
+					mainMenu->update();
+				}
+				currentScene = mainMenu->getSelected();
+				mainMenu->clean();
+				}break;
 			
 			case LEVELMENU:
 				break;
@@ -38,8 +52,8 @@ int main(int argc, char* argv[]){
 				break;
 		}
 		game->handleEvents();
-		game->update();
-		game->render();
+		//game->update();
+		//game->render();
 		
 		//this allows us to know how much time all the treatments takes per frame.
 		//we store the time a frame has taken in frameTime
