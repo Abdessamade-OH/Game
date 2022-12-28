@@ -47,13 +47,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		
 void Game::handleEvents(){
 	SDL_Event event;
-	SDL_PollEvent(&event);
-	switch(event.type){
-		case SDL_QUIT:
-			this->isRunning = false;
-			break;
-		default:
-			break;
+	if( SDL_PollEvent(&event) ){
+		switch(event.type){
+			case SDL_QUIT:
+				this->isRunning = false;
+				break;
+			default:
+				break;
+		}
 	}
 }
 	

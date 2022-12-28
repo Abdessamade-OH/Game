@@ -7,7 +7,7 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName){
 	if( tmpSurface==nullptr )
 		std::cout<<"IMG_Load Error: "<<SDL_GetError()<<std::endl;
 	else{
-		texture = SDL_CreateTextureFromSurface(Scene::renderer, tmpSurface);
+		texture = SDL_CreateTextureFromSurface(Game::renderer, tmpSurface);
 		if( texture==nullptr )
 			std::cout<<"SDL_CreateTextureFromSurface Error: "<<SDL_GetError()<<std::endl;
 		SDL_FreeSurface(tmpSurface);

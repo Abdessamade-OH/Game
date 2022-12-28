@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene.h"
+#include "gameHeader.h"
 
 class GameObject{
 	

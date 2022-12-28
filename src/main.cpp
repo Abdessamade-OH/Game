@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Scene *game = NULL;
+Game *game = NULL;
 
 int main(int argc, char* argv[]){
 	GameScene currentScene = MAINMENU;
@@ -16,8 +16,8 @@ int main(int argc, char* argv[]){
 	Uint32 frameStart;
 	int frameTime;
 
-	game = new Scene();
-	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1200, 600, false);
+	game = new Game();
+	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
 	
 	while(game->running()){
 		
@@ -26,6 +26,7 @@ int main(int argc, char* argv[]){
 	
 		switch(currentScene){ //current scene will be an enum with three possibilites {mainMenu, levelMenu, levels} 
 			case MAINMENU:
+				
 				break;
 			
 			case LEVELMENU:
