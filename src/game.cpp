@@ -60,7 +60,7 @@ void Game::handleEvents(){
 	}
 }
 	
-void Game::update(){
+/*void Game::update(){
 	counter++;
 	//player->update();
 	cout<<counter<<endl;
@@ -70,7 +70,7 @@ void Game::render(){
 	SDL_RenderClear(renderer);
 //	player->render();
 	SDL_RenderPresent(renderer);
-}
+}*/
 	
 void Game::clean(){
 	SDL_DestroyWindow(window);
@@ -78,9 +78,6 @@ void Game::clean(){
 	SDL_DestroyRenderer(renderer);
 	this->renderer = NULL;
 	SDL_Quit();
-	
-	
-
 }
 
 

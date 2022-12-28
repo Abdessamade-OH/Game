@@ -16,8 +16,8 @@ class Game{
 		void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 		
 		void handleEvents();
-		void update();
-		void render();
+		//void update();
+		//void render();
 		void clean();
 		bool running(){ return isRunning; }
 		void setRunning(bool state){this->isRunning = state;};

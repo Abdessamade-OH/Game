@@ -1,5 +1,6 @@
 #include "./header/gameHeader.h"
 #include "./header/menuScene.h"
+#include "./header/GameObject.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -34,6 +35,9 @@ int main(int argc, char* argv[]){
 			case MAINMENU:{
 				cout<<"Inside mainMenu"<<endl;
 				mainMenu->init("assets/MenuImage.png");
+				GameObject *startButton = new GameObject("assets/start_button.png", 0, 0, 40, 64);
+				startButton->setSrcRect(0, 0, 20, 32);
+				mainMenu->addItem(startButton);
 				while(mainMenu->running()){
 					mainMenu->render();
 					mainMenu->handleEvents();
@@ -68,8 +72,7 @@ int main(int argc, char* argv[]){
 	}
 	
 	game->clean();
-	
-	
+	cout<<"Game cleared"<<endl;
 	
 	return 0;
 }

@@ -10,5 +10,7 @@ OBJS_NAME = bin/game
 
 all: $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJS_NAME)
+debug:
+	$(CC) -g $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJS_NAME)	
 start:
 	./$(OBJS_NAME)
