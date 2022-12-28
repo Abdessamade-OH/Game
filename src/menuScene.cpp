@@ -23,7 +23,6 @@ void MenuScene::render(){
 	}
 	SDL_RenderPresent(Game::renderer);
 	//std::cout<<"rendering"<<std::endl;
-	
 }
 
 void MenuScene::init(const char* filename){

@@ -5,12 +5,12 @@
 class GameObject{
 	
 	public:
-		GameObject(const char* textureSheet, int x, int y, int h, int w);
+		GameObject(const char* textureSheet, int x, int y, int w, int h);
 		~GameObject();
 		
 		void update();
 		void render();
-		void setSrcRect(int x, int y, int h, int w);
+		void setSrcRect(int x, int y, int w, int h);
 		SDL_Rect* getDestRect();
 		
 	protected:

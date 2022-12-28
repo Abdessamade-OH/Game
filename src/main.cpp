@@ -25,8 +25,7 @@ int main(int argc, char* argv[]){
 	
 	while(game->running()){
 		
-		//we get the time at when the frame starts
-		frameStart = SDL_GetTicks();
+		
 	
 		switch(currentScene){ //current scene will be an enum with three possibilites {mainMenu, levelMenu, levels} 	
 			case QUIT:
@@ -35,13 +34,27 @@ int main(int argc, char* argv[]){
 			case MAINMENU:{
 				cout<<"Inside mainMenu"<<endl;
 				mainMenu->init("assets/MenuImage.png");
-				GameObject *startButton = new GameObject("assets/start_button.png", 0, 0, 40, 64);
-				startButton->setSrcRect(0, 0, 20, 32);
+				GameObject *startButton = new GameObject("assets/start_button.png", 304, 140, 96, 60);
+				startButton->setSrcRect(0, 0, 32, 20);
 				mainMenu->addItem(startButton);
 				while(mainMenu->running()){
+					//we get the time at when the frame starts
+					frameStart = SDL_GetTicks();
 					mainMenu->render();
 					mainMenu->handleEvents();
 					mainMenu->update();
+					
+					//this allows us to know how much time all the treatments takes per frame.
+					//we store the time a frame has taken in frameTime
+					frameTime = SDL_GetTicks() - frameStart;
+					
+					//if the time between each frame is less than the time between each frame in a 60 FPS setting, then we delay it by the difference between them to cap it at 60FPS.
+					if(frameDelay>frameTime){
+						SDL_Delay(frameDelay - frameTime);
+					}
+					
+					int deltaTime = SDL_GetTicks() - frameStart;
+					
 				}
 				currentScene = mainMenu->getSelected();
 				mainMenu->clean();
@@ -59,16 +72,7 @@ int main(int argc, char* argv[]){
 		//game->update();
 		//game->render();
 		
-		//this allows us to know how much time all the treatments takes per frame.
-		//we store the time a frame has taken in frameTime
-		frameTime = SDL_GetTicks() - frameStart;
 		
-		//if the time between each frame is less than the time between each frame in a 60 FPS setting, then we delay it by the difference between them to cap it at 60FPS.
-		if(frameDelay>frameTime){
-			SDL_Delay(frameDelay - frameTime);
-		}
-		
-		int deltaTime = SDL_GetTicks() - frameStart;
 	}
 	
 	game->clean();

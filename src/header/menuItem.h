@@ -4,9 +4,11 @@
 
 class MenuItem : public GameObject{
 	private:
-		bool button;
+		bool buttonState;
 		bool selected;
 	public:
-		MenuItem(bool button, const char* textureSheet, int x, int y, int h, int w);
-		~MenuItem();
+		void setButtonState(bool state);
+		void setSelected(bool state);
+		bool getButtonState(){return this->buttonState;}
+		bool getSelected(){return this->selected;}
 };

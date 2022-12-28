@@ -1,7 +1,7 @@
 #include "header/GameObject.h"
 #include "header/TextureManager.h"
 GameObject::~GameObject(){}
-GameObject::GameObject(const char* textureSheet, int x, int y, int h, int w){
+GameObject::GameObject(const char* textureSheet, int x, int y, int w, int h){
 
 	objectTexture = TextureManager::LoadTexture(textureSheet);
 	std::cout<<"object texture loaded"<<std::endl;
@@ -16,7 +16,7 @@ GameObject::GameObject(const char* textureSheet, int x, int y, int h, int w){
 	srcRect.h = 0;
 	srcRect.w = 0;*/
 }
-void GameObject::setSrcRect(int x, int y, int h, int w){
+void GameObject::setSrcRect(int x, int y, int w, int h){
 	srcRect.x = x;
 	srcRect.y = y;
 	srcRect.h = h;
