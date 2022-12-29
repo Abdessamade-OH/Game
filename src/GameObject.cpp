@@ -41,3 +41,7 @@ void GameObject::render(){
 	//std::cout<<"object rendered"<<std::endl;
 }
 
+void GameObject::clean(){
+	SDL_DestroyTexture(objectTexture);
+}
+

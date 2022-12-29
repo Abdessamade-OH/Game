@@ -1,6 +1,6 @@
 #pragma once
 #include "gameHeader.h"
-//#include "menuItem.h"
+#include "menuItem.h"
 #include "GameObject.h"
 #include <vector>
 
@@ -18,13 +18,13 @@ class MenuScene {
 		void clean();
 		bool running(){return isRunning;}
 		GameScene getSelected(){return selected;}
-		void addItem(GameObject *item);
+		void addItem(MenuItem *item);
 		
 		//void setMenuItem(int index, )
 	
 	private:
 		SDL_Texture* backgroundImage;
-		std::vector<GameObject*> items;
+		std::vector<MenuItem*> items;
 		bool isRunning;
 		GameScene selected;
 };

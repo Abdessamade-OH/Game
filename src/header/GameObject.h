@@ -8,15 +8,16 @@ class GameObject{
 		GameObject(const char* textureSheet, int x, int y, int w, int h);
 		~GameObject();
 		
-		void update();
-		void render();
+		virtual void update();
+		virtual void render();
 		void setSrcRect(int x, int y, int w, int h);
 		SDL_Rect* getDestRect();
+		virtual void clean();
 		
 	protected:
 		int xpos;
 		int ypos;
 		
-		SDL_Texture* objectTexture;
+		SDL_Texture* objectTexture = NULL;
 		SDL_Rect srcRect, destRect;
 };

@@ -1,6 +1,7 @@
 #include "./header/gameHeader.h"
 #include "./header/menuScene.h"
 #include "./header/GameObject.h"
+#include "./header/menuItem.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -18,7 +19,7 @@ int main(int argc, char* argv[]){
 	Uint32 frameStart;
 	int frameTime;
 	
-	MenuScene* mainMenu = new MenuScene();
+	
 
 	game = new Game();
 	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
@@ -32,11 +33,18 @@ int main(int argc, char* argv[]){
 				game->setRunning(false);
 				break;
 			case MAINMENU:{
+				MenuScene* mainMenu = new MenuScene();
 				cout<<"Inside mainMenu"<<endl;
 				mainMenu->init("assets/MenuImage.png");
-				GameObject *startButton = new GameObject("assets/start_button.png", 304, 140, 96, 60);
+				MenuItem *startButton = new MenuItem(true, "Start", "assets/pixel font-7.ttf","assets/Button.png", 310, 240, 32*3, 20*3);
+				MenuItem *exitButton = new MenuItem(true, "Exit", "assets/pixel font-7.ttf", "assets/Button.png", 310, 320, 32*3, 20*3);
+				MenuItem *menuTitle = new MenuItem(false, "Doors", "assets/pixel font-7.ttf", "assets/Button.png", 304, 100, 32*4, 20*4);
+				menuTitle->setSrcRect(32, 0, 32, 20);
 				startButton->setSrcRect(0, 0, 32, 20);
+				exitButton->setSrcRect(0, 0, 32, 20);
 				mainMenu->addItem(startButton);
+				mainMenu->addItem(exitButton);
+				mainMenu->addItem(menuTitle);
 				while(mainMenu->running()){
 					//we get the time at when the frame starts
 					frameStart = SDL_GetTicks();
@@ -58,6 +66,7 @@ int main(int argc, char* argv[]){
 				}
 				currentScene = mainMenu->getSelected();
 				mainMenu->clean();
+				delete(mainMenu);
 				}break;
 			
 			case LEVELMENU:
@@ -69,10 +78,7 @@ int main(int argc, char* argv[]){
 				break;
 		}
 		game->handleEvents();
-		//game->update();
-		//game->render();
-		
-		
+	
 	}
 	
 	game->clean();

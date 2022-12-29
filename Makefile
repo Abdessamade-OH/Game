@@ -13,15 +13,20 @@ all: $(OBJS)
 	
 bin/main.o:	src/main.cpp
 	$(CC) -c src/main.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/main.o
+	
 bin/game.o:	src/game.cpp
 	$(CC) -c src/game.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/game.o
+	
 bin/TextureManager.o:	src/TextureManager.cpp
 	$(CC) -c src/TextureManager.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/TextureManager.o
+	
 bin/GameObject.o:	src/GameObject.cpp
 	$(CC) -c src/GameObject.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/GameObject.o
+	
 bin/menuScene.o:	src/menuScene.cpp
 	$(CC) -c src/menuScene.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/menuScene.o
-bin/MenuItem.o:
+	
+bin/MenuItem.o:		src/MenuItem.cpp
 	$(CC) -c src/MenuItem.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/MenuItem.o
 	
 debug:
