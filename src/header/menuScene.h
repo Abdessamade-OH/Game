@@ -10,7 +10,7 @@ class MenuScene {
 		MenuScene();
 		~MenuScene();
 		
-		void init(const char* filename);
+		void init(const char* filename, int whichMenu);
 		void update();
 		void render();
 		void handleEvents(); 
@@ -23,6 +23,7 @@ class MenuScene {
 		//void setMenuItem(int index, )
 	
 	private:
+		int whichMenu = 0;
 		SDL_Texture* backgroundImage;
 		std::vector<MenuItem*> items;
 		bool isRunning;

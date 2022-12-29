@@ -5,7 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-typedef enum {QUIT, MAINMENU, LEVELMENU, LEVELS} GameScene; 
+typedef enum {QUIT, MAINMENU, LEVELMENU, FIRSTLEVEL, SECONDLEVEL, THIRDLEVEL} GameScene; //was gonna make levelmenu return the selected level and add it to the levels Vector, but this is just easier
 
 class Game{
 
