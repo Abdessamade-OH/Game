@@ -1,5 +1,6 @@
 #include "./header/gameHeader.h"
 #include "./header/menuScene.h"
+#include "./header/levelScene.h"
 #include "./header/GameObject.h"
 #include "./header/menuItem.h"
 #include <iostream>
@@ -13,14 +14,13 @@ Game *game = NULL;
 
 int main(int argc, char* argv[]){
 	GameScene currentScene = MAINMENU;
-	const int FPS = 30;
+	const int FPS = 60;
 	const int frameDelay = 1000/FPS; //we get the delta time for 60 FPS in ms (that's why we multiply by a 1000)
 	
 	Uint32 frameStart;
 	int frameTime;
 	
 	
-
 	game = new Game();
 	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
 	
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]){
 					//cout<<deltaTime<<endl;
 					
 				}
-				currentScene = mainMenu->getSelected();
+				currentScene = mainMenu->getSelectedScene();
 				mainMenu->clean();
 				delete(mainMenu);
 				mainMenu = nullptr;
@@ -78,24 +78,24 @@ int main(int argc, char* argv[]){
 					
 					MenuItem *menuTitle = new MenuItem(false, "Levels", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2), 100, 32*4, 20*4);
 					
-					MenuItem *firstLevel = new MenuItem(true, "1", "assets/pixel font-7.ttf", "assets/Button.png", 800/3 - (32*2) , 100 + 32*4, 32*4, 20*4);
+					MenuItem *firstLevelButton = new MenuItem(true, "1", "assets/pixel font-7.ttf", "assets/Button.png", 800/3 - (32*2) , 100 + 32*4, 32*4, 20*4);
 					
-					MenuItem *secondLevel = new MenuItem(true, "2", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2), 100 + 32*4, 32*4, 20*4);
+					MenuItem *secondLevelButton = new MenuItem(true, "2", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2), 100 + 32*4, 32*4, 20*4);
 					
-					MenuItem *thirdLevel = new MenuItem(true, "3", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2) + 32*4+ 5, 100 + 32*4 , 32*4, 20*4);
+					MenuItem *thirdLevelButton = new MenuItem(true, "3", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2) + 32*4+ 5, 100 + 32*4 , 32*4, 20*4);
 					
-					MenuItem *back = new MenuItem(true, "Back", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2), 100 + 32*4*2 + 20, 32*4, 20*4);
+					MenuItem *backButton = new MenuItem(true, "Back", "assets/pixel font-7.ttf", "assets/Button.png", 800/2 - (32*2), 100 + 32*4*2 + 20, 32*4, 20*4);
 					
 					menuTitle->setSrcRect(32, 0, 32, 20);
-					firstLevel->setSrcRect(0, 0, 32, 20);
-					secondLevel->setSrcRect(0, 0, 32, 20);
-					thirdLevel->setSrcRect(0, 0, 32, 20);
-					back->setSrcRect(32, 0, 32, 20);
+					firstLevelButton->setSrcRect(0, 0, 32, 20);
+					secondLevelButton->setSrcRect(0, 0, 32, 20);
+					thirdLevelButton->setSrcRect(0, 0, 32, 20);
+					backButton->setSrcRect(32, 0, 32, 20);
 					levelsMenu->addItem(menuTitle);
-					levelsMenu->addItem(firstLevel);
-					levelsMenu->addItem(secondLevel);
-					levelsMenu->addItem(thirdLevel);
-					levelsMenu->addItem(back);
+					levelsMenu->addItem(firstLevelButton);
+					levelsMenu->addItem(secondLevelButton);
+					levelsMenu->addItem(thirdLevelButton);
+					levelsMenu->addItem(backButton);
 					
 					while(levelsMenu->running()){
 						//we get the time at when the frame starts
@@ -118,23 +118,93 @@ int main(int argc, char* argv[]){
 					
 				}
 				cout<<"leaving levelMenu"<<endl;
-				currentScene = levelsMenu->getSelected();
+				currentScene = levelsMenu->getSelectedScene();
 				levelsMenu->clean();
 				delete(levelsMenu);
 				levelsMenu = nullptr;
 				}break;
 				
-			case FIRSTLEVEL:
+			case FIRSTLEVEL:{
 				//int levelnum = levelMenu->selectedLevel;
 				//level[levelnum]->init();
-				cout<<"FIRSTLEVEL"<<endl;
-				break;
-			case SECONDLEVEL:
-				cout<<"SECONDLEVEL"<<endl;
-			break;
-			case THIRDLEVEL:
+				LevelScene* firstLevel = new LevelScene();
+				cout<<"inside first level."<<endl;
+				firstLevel->init("assets/levelBackGround.png", 1);
+				while(firstLevel->running()){
+					frameStart = SDL_GetTicks();
+					
+					firstLevel->update();
+					firstLevel->render();
+					firstLevel->handleEvents();
+					
+					frameTime = SDL_GetTicks() - frameStart;
+					
+					
+					//we delay by frameDelay minus the frame time
+					if(frameDelay>frameTime){
+						SDL_Delay(frameDelay - frameTime);
+					}
+					
+				}
+				currentScene = firstLevel->getSelectedScene();
+				firstLevel->clean();
+				delete(firstLevel);
+				firstLevel = nullptr;
+				cout<<"FIRSTLEVEL out"<<endl;
+				}break;
+			case SECONDLEVEL:{
+				LevelScene* secondLevel = new LevelScene();
+				cout<<"inside second level."<<endl;
+				secondLevel->init("assets/levelBackGround.png", 2);
+				while(secondLevel->running()){
+					frameStart = SDL_GetTicks();
+					
+					secondLevel->update();
+					secondLevel->render();
+					secondLevel->handleEvents();
+					
+					frameTime = SDL_GetTicks() - frameStart;
+					
+					
+					//we delay by frameDelay minus the frame time
+					if(frameDelay>frameTime){
+						SDL_Delay(frameDelay - frameTime);
+					}
+					
+				}
+				currentScene = secondLevel->getSelectedScene();
+				secondLevel->clean();
+				delete(secondLevel);
+				secondLevel = nullptr;
+				cout<<"SECONDLEVEL out"<<endl;
+			}break;
+			case THIRDLEVEL:{
+				LevelScene* thirdLevel = new LevelScene();
+				cout<<"inside third level."<<endl;
+				thirdLevel->init("assets/levelBackGround.png", 3);
+				while(thirdLevel->running()){
+					frameStart = SDL_GetTicks();
+					
+					thirdLevel->update();
+					thirdLevel->render();
+					thirdLevel->handleEvents();
+					
+					frameTime = SDL_GetTicks() - frameStart;
+					
+					
+					//we delay by frameDelay minus the frame time
+					if(frameDelay>frameTime){
+						SDL_Delay(frameDelay - frameTime);
+					}
+					
+				}
+				currentScene = thirdLevel->getSelectedScene();
+				thirdLevel->clean();
+				delete(thirdLevel);
+				thirdLevel = nullptr;
+				cout<<"thirdLevel out"<<endl;
 				cout<<"THIRDLEVEL"<<endl;
-			break;
+			}break;
 			
 			
 		}

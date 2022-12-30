@@ -1,4 +1,4 @@
-OBJS = bin/main.o bin/game.o bin/TextureManager.o bin/GameObject.o bin/menuScene.o bin/MenuItem.o
+OBJS = bin/main.o bin/game.o bin/TextureManager.o bin/GameObject.o bin/Scene.o bin/menuScene.o bin/LevelScene.o bin/MenuItem.o
 
 CC = g++
 
@@ -23,11 +23,20 @@ bin/TextureManager.o:	src/TextureManager.cpp
 bin/GameObject.o:	src/GameObject.cpp
 	$(CC) -c src/GameObject.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/GameObject.o
 	
+bin/Scene.o:	src/Scene.cpp
+	$(CC) -c src/Scene.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/Scene.o
+	
 bin/menuScene.o:	src/menuScene.cpp
 	$(CC) -c src/menuScene.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/menuScene.o
 	
+bin/LevelScene.o:		src/LevelScene.cpp
+	$(CC) -c src/LevelScene.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/LevelScene.o
+	
 bin/MenuItem.o:		src/MenuItem.cpp
 	$(CC) -c src/MenuItem.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/MenuItem.o
+	
+	
+
 	
 debug:
 	$(CC) -g $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJS_NAME)	

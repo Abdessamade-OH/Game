@@ -1,10 +1,12 @@
 #include "./header/menuScene.h"
-#include "./header/TextureManager.h"
-#include "./header/GameObject.h"
+//#include "./header/TextureManager.h"
+//#include "./header/GameObject.h"
 #include <iterator>
 
-std::vector<MenuItem*>::iterator itr;
-MenuScene::MenuScene(){}
+
+MenuScene::MenuScene(){
+	std::cout<<"menu created"<<std::endl;	
+}
 MenuScene::~MenuScene(){}
 		
 void MenuScene::update(){
@@ -15,22 +17,21 @@ void MenuScene::update(){
 
 void MenuScene::render(){
 	SDL_RenderClear(Game::renderer);
-	
-	SDL_RenderCopy(Game::renderer, backgroundImage, NULL, NULL);
-	
+
+	SDL_RenderCopy(Game::renderer, this->backgroundImage, NULL, NULL);
+
 	for(int i = 0; i < items.size(); i++){
 		items[i]->render();
 	}
 	SDL_RenderPresent(Game::renderer);
-	//std::cout<<"rendering"<<std::endl;
 }
 
-void MenuScene::init(const char* filename, int whichMenu){
-	this->whichMenu = whichMenu;
+/*void MenuScene::init(const char* filename, int which){
+	this->which = which;
 	backgroundImage = TextureManager::LoadTexture(filename);
 	std::cout<<"background texture loaded"<<std::endl;
 	this->isRunning = true;
-}
+}*/
 
 void MenuScene::addItem(MenuItem *item){
 	this->items.push_back(item);
@@ -44,7 +45,7 @@ void MenuScene::handleEvents(){
 		switch(event.type){
 			case SDL_QUIT:
 				this->isRunning = false;
-				selected = QUIT;
+				selectedScene = QUIT;
 				break;
 			case SDL_MOUSEMOTION:{
 				x=event.motion.x;
@@ -84,42 +85,42 @@ void MenuScene::handleEvents(){
 			}break;
 			*/
 		case SDL_MOUSEBUTTONDOWN:{
-			if(this->whichMenu == 1){
+			if(this->which == 1){
 						if(items[1]->getSelected()){
 							std::cout<<"quit button clicked"<<std::endl;
 							this->isRunning = false;
-							selected = QUIT;
+							selectedScene = QUIT;
 							break;
 						}
 						if(items[0]->getSelected()){
 							this->isRunning = false;
-							selected = LEVELMENU;
+							selectedScene = LEVELMENU;
 							break;
 						}
 			}
-			else if(this->whichMenu == 2){
+			else if(this->which == 2){
 						if(items[1]->getSelected()){
 							std::cout<<"firstLevel button clicked"<<std::endl;
 							this->isRunning = false;
-							selected = FIRSTLEVEL;
+							selectedScene = FIRSTLEVEL;
 							break;
 						}
-						else if(items[1]->getSelected()){
+						else if(items[2]->getSelected()){
 							std::cout<<"firstLevel button clicked"<<std::endl;
 							this->isRunning = false;
-							selected = SECONDLEVEL;
+							selectedScene = SECONDLEVEL;
 							break;
 						}
-						else if(items[1]->getSelected()){
+						else if(items[3]->getSelected()){
 							std::cout<<"firstLevel button clicked"<<std::endl;
 							this->isRunning = false;
-							selected = THIRDLEVEL;
+							selectedScene = THIRDLEVEL;
 							break;
 						}
 						else if(items[4]->getSelected()){
 							std::cout<<"firstLevel button clicked"<<std::endl;
 							this->isRunning = false;
-							selected = MAINMENU;
+							selectedScene = MAINMENU;
 							break;
 						}
 			}
@@ -131,6 +132,7 @@ void MenuScene::handleEvents(){
 } 
 		
 void MenuScene::clean(){
+	std::vector<MenuItem*>::iterator itr;
 	SDL_DestroyTexture(backgroundImage);
 	backgroundImage = NULL;
 
@@ -138,7 +140,6 @@ void MenuScene::clean(){
 		(*itr)->clean();
 		delete(*itr);
 	}
-	
 	items.clear();
 	std::cout<<"Main menu cleared"<<std::endl;
 }
