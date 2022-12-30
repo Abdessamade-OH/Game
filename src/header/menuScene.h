@@ -20,13 +20,14 @@ class MenuScene : public Scene{
 		//bool running(){return isRunning;}
 		//GameScene getSelectedScene(){return selectedScene;}
 		void addItem(MenuItem *item);
-		
+		static SDL_Texture* menuTexture;
 		//void setMenuItem(int index, )
 	
 	private:
 		//int which = 0;
 		//SDL_Texture* backgroundImage;
 		std::vector<MenuItem*> items;
+		
 		//bool isRunning;
 		//GameScene selectedScene;
 };

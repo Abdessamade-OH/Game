@@ -15,7 +15,7 @@ class MenuItem : public GameObject{
 		SDL_Rect textRect = (SDL_Rect){destRect.x + 5, destRect.y + 5, destRect.w - 10, destRect.h - 10};
 	public:
 		~MenuItem();
-		MenuItem(bool buttonState, const char* text, const char* fontFile, const char* textureSheet, int x, int y, int w, int h);
+		MenuItem(bool buttonState, const char* text, const char* fontFile, /*const char* textureSheet,*/ int x, int y, int w, int h);
 
 
 		bool getButtonState(){return this->button;}

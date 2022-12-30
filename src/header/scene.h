@@ -1,6 +1,7 @@
 #pragma once
 #include "gameHeader.h"
 #include "TextureManager.h"
+#include "menuItem.h"
 
 class Scene {
 
@@ -15,7 +16,7 @@ class Scene {
 		virtual void clean(){}
 		bool running(){return isRunning;}
 		GameScene getSelectedScene(){return selectedScene;}
-	
+		static SDL_Texture* textureSheet;
 	protected:
 		int which = 1;
 		SDL_Texture* backgroundImage;

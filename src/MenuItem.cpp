@@ -4,7 +4,7 @@
 
 MenuItem::~MenuItem(){}
 
-MenuItem::MenuItem(bool buttonState, const char* text, const char* fontFile, const char* textureSheet, int x, int y, int w, int h):GameObject(textureSheet, x, y, w, h){
+MenuItem::MenuItem(bool buttonState, const char* text, const char* fontFile, /*const char* textureSheet,*/ int x, int y, int w, int h):GameObject(/*textureSheet,*/ x, y, w, h){
 	this->text = text;
 	TTF_Init();
 	this->button = buttonState;
@@ -54,7 +54,9 @@ void MenuItem::setSelected(bool state){
 
 void MenuItem::render(){
 	
-	SDL_RenderCopy(Game::renderer, objectTexture, &srcRect, &destRect);
+	//std::
+	GameObject::render();
+	//SDL_RenderCopy(Game::renderer, objectTexture, &srcRect, &destRect);
 	SDL_RenderCopy(Game::renderer, textTexture, NULL, &textRect);
 	//SDL_BlitSurface(text, NULL, destRect, )
 }
@@ -69,6 +71,9 @@ void MenuItem::clean(){
 }
 
 void MenuItem::update(){
+	std::cout<<"before update inside"<<std::endl;
 	GameObject::update();
+	std::cout<<"after update, and before text inside"<<std::endl;
 	textRect = (SDL_Rect){destRect.x + 5, destRect.y + 5, destRect.w - 10, destRect.h - 10};
+	std::cout<<"after text inside"<<std::endl;
 }

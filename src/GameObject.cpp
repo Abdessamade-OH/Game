@@ -1,11 +1,12 @@
 #include "header/GameObject.h"
 #include "header/TextureManager.h"
+#include "header/scene.h"
 GameObject::~GameObject(){}
-GameObject::GameObject(const char* textureSheet, int x, int y, int w, int h){
+GameObject::GameObject(/*const char* textureSheet,*/ int x, int y, int w, int h){
 
-	objectTexture = TextureManager::LoadTexture(textureSheet);
-	std::cout<<"object texture loaded"<<std::endl;
-	std::cout<<textureSheet<<std::endl;
+	//objectTexture = TextureManager::LoadTexture(textureSheet);
+	//std::cout<<"object texture loaded"<<std::endl;
+	//std::cout<<textureSheet<<std::endl;
 	xpos = x;
 	ypos = y;
 	destRect.h = h;
@@ -37,11 +38,11 @@ void GameObject::update(){
 
 void GameObject::render(){
 
-	SDL_RenderCopy(Game::renderer, objectTexture, &srcRect, &destRect);
+	SDL_RenderCopy(Game::renderer, Scene::textureSheet, &srcRect, &destRect);
 	//std::cout<<"object rendered"<<std::endl;
 }
 
 void GameObject::clean(){
-	SDL_DestroyTexture(objectTexture);
+	//SDL_DestroyTexture(objectTexture);
 }
 
