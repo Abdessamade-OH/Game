@@ -71,9 +71,9 @@ void MenuItem::clean(){
 }
 
 void MenuItem::update(){
-	std::cout<<"before update inside"<<std::endl;
+	//std::cout<<"before update inside"<<std::endl;
 	GameObject::update();
-	std::cout<<"after update, and before text inside"<<std::endl;
+	//std::cout<<"after update, and before text inside"<<std::endl;
 	textRect = (SDL_Rect){destRect.x + 5, destRect.y + 5, destRect.w - 10, destRect.h - 10};
-	std::cout<<"after text inside"<<std::endl;
+	//std::cout<<"after text inside"<<std::endl;
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gameHeader.h"
+#include <vector>
 
 class GameObject{
 	
@@ -13,10 +14,9 @@ class GameObject{
 		void setSrcRect(int x, int y, int w, int h);
 		SDL_Rect* getDestRect();
 		virtual void clean();
+		//std::vector<int> getPos();
 		
 	protected:
-		int xpos;
-		int ypos;
 		
 		//SDL_Texture* objectTexture = NULL;
 		SDL_Rect srcRect, destRect;

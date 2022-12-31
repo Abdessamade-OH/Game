@@ -23,15 +23,19 @@ LevelScene::LevelScene(){
 }
 LevelScene::~LevelScene(){}
 
-void LevelScene::update(){
+void LevelScene::update(float deltaTime){
 	std::vector<GameObject*>::iterator it;
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
 		(*it)->update();
 	}
+	std::vector<Player*>::iterator playerItr;
+	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
+		(*playerItr)->update(deltaTime);
+	}
 	
-	std::cout<<"before update"<<std::endl;
+	//std::cout<<"before update"<<std::endl;
 	LevelbackButton->update();
-	std::cout<<"after update"<<std::endl;
+	//std::cout<<"after update"<<std::endl;
 }
 
 void LevelScene::render(){
@@ -43,9 +47,15 @@ void LevelScene::render(){
 		(*it)->render();
 	}
 	
-	std::cout<<"before render"<<std::endl;
+	std::vector<Player*>::iterator playerItr;
+	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
+		(*playerItr)->render();
+	}
+	
+	//std::cout<<"before render"<<std::endl;
 	LevelbackButton->render();
-	std::cout<<"after render"<<std::endl;
+	//std::cout<<"after render"<<std::endl;
+	
 	
 	SDL_RenderPresent(Game::renderer);
 }
@@ -105,13 +115,23 @@ void LevelScene::handleEvents(){
 
 void LevelScene::clean(){
 	std::vector<GameObject*>::iterator it;
+	std::vector<Player*>::iterator playerItr;
+	
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
 		(*it)->clean();
 		delete(*it);
 	}
+	
+	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
+		(*playerItr)->clean();
+		delete(*playerItr);
+	}
+	
 	SDL_DestroyTexture(backgroundImage);
 	backgroundImage = NULL;
+	
 	obstacles.clear();
+	players.clear();
 	LevelbackButton->clean();
 	std::cout<<"Level cleared"<<std::endl;
 }

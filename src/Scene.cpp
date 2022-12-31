@@ -3,8 +3,6 @@
 
 Scene::Scene(){
 	std::cout<<"menu created"<<std::endl;
-	
-	
 }
 Scene::~Scene(){}
 

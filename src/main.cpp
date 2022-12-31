@@ -25,7 +25,8 @@ int main(int argc, char* argv[]){
 	
 	game = new Game();
 	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
-	
+	float deltaTime = 0;
+	Scene::textureSheet = TextureManager::LoadTexture("assets/textureSheet.png");
 	while(game->running()){
 		
 		
@@ -38,7 +39,6 @@ int main(int argc, char* argv[]){
 				MenuScene* mainMenu = new MenuScene();
 				cout<<"Inside mainMenu"<<endl;
 				mainMenu->init("assets/MenuImage.png", 1);
-				Scene::textureSheet = TextureManager::LoadTexture("assets/Button.png");
 				MenuItem *startButton = new MenuItem(true, "Start", "assets/pixel font-7.ttf", 310, 240, 32*3, 20*3);
 				MenuItem *exitButton = new MenuItem(true, "Exit", "assets/pixel font-7.ttf", 310, 320, 32*3, 20*3);
 				MenuItem *menuTitle = new MenuItem(false, "Doors", "assets/pixel font-7.ttf", 304, 100, 32*4, 20*4);
@@ -57,30 +57,26 @@ int main(int argc, char* argv[]){
 					
 					//this allows us to know how much time all the treatments takes per frame.
 					//we store the time a frame has taken in frameTime
-					frameTime = SDL_GetTicks() - frameStart;
 					
 					//if the time between each frame is less than the time between each frame in a 60 FPS setting, then we delay it by the difference between them to cap it at 60FPS.
 					if(frameDelay>frameTime){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					int deltaTime = SDL_GetTicks() - frameStart;
-					//cout<<deltaTime<<endl;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				currentScene = mainMenu->getSelectedScene();
 				mainMenu->clean();
 				delete(mainMenu);
 				mainMenu = nullptr;
-				SDL_DestroyTexture(Scene::textureSheet);
-				Scene::textureSheet = nullptr;
 				}break;
+			
 			
 			case LEVELMENU:{
 					MenuScene* levelsMenu = new MenuScene();
 					cout<<"Inside levelsMenu"<<endl;
 					levelsMenu->init("assets/MenuImage.png", 2);
-					Scene::textureSheet = TextureManager::LoadTexture("assets/Button.png");
 					MenuItem *menuTitle = new MenuItem(false, "Levels", "assets/pixel font-7.ttf", 800/2 - (32*2), 100, 32*4, 20*4);
 					
 					MenuItem *firstLevelButton = new MenuItem(true, "1", "assets/pixel font-7.ttf", 800/3 - (32*2) , 100 + 32*4, 32*4, 20*4);
@@ -118,8 +114,7 @@ int main(int argc, char* argv[]){
 							SDL_Delay(frameDelay - frameTime);
 						}
 					
-					int deltaTime = SDL_GetTicks() - frameStart;
-					//cout<<deltaTime<<endl;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				cout<<"leaving levelMenu"<<endl;
@@ -127,22 +122,20 @@ int main(int argc, char* argv[]){
 				levelsMenu->clean();
 				delete(levelsMenu);
 				levelsMenu = nullptr;
-				SDL_DestroyTexture(Scene::textureSheet);
-				Scene::textureSheet = nullptr;
 				}break;
 				
 			case FIRSTLEVEL:{
 				//int levelnum = levelMenu->selectedLevel;
 				//level[levelnum]->init();
+				
 				LevelScene* firstLevel = new LevelScene();
-				cout<<"inside first level."<<endl;
-				Scene::textureSheet = TextureManager::LoadTexture("assets/Button.png");
 				firstLevel->init("assets/levelBackGround.png", 1);
+				cout<<"inside first level."<<endl;
 				
 				while(firstLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					firstLevel->update();
+					firstLevel->update(deltaTime);
 					firstLevel->render();
 					firstLevel->handleEvents();
 					
@@ -154,25 +147,48 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					cout<<deltaTime<<endl;
+					
 				}
 				currentScene = firstLevel->getSelectedScene();
 				firstLevel->clean();
 				delete(firstLevel);
 				firstLevel = nullptr;
 				cout<<"FIRSTLEVEL out"<<endl;
-				SDL_DestroyTexture(Scene::textureSheet);
-				Scene::textureSheet = nullptr;
 				}break;
 				
 			case SECONDLEVEL:{
 				LevelScene* secondLevel = new LevelScene();
 				cout<<"inside second level."<<endl;
-				Scene::textureSheet = TextureManager::LoadTexture("assets/Button.png");
 				secondLevel->init("assets/levelBackGround.png", 2);
+				
+				GameObject* ground1 = new GameObject( 0, 600 - (12*4), 300, 12*4);
+				ground1->setSrcRect(0, 20, 64, 12);
+				
+				GameObject* ground2 = new GameObject( 500, 600 - (12*4), 300, 12*4);
+				ground2->setSrcRect(0, 20, 64, 12);
+				
+				/*GameObject* wall1 = new GameObject( 0, 0, 12, 600);
+				wall1->setSrcRect(86, 0, 12, 32);
+				
+				GameObject* wall2 = new GameObject( 800 - 12, 0, 12, 600);
+				wall2->setSrcRect(86, 0, 12, 32);
+				
+				secondLevel->addObstacle(wall1);
+				secondLevel->addObstacle(wall2);*/
+				
+				Player* firstPlayer = new Player(380, 300, 22*3, 28*3);
+				firstPlayer->setSrcRect(64, 0, 22, 28);				
+				
+				secondLevel->addObstacle(ground1);
+				secondLevel->addObstacle(ground2);
+				secondLevel->addPlayer(firstPlayer);
+				
 				while(secondLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					secondLevel->update();
+					secondLevel->update(deltaTime);
 					secondLevel->render();
 					secondLevel->handleEvents();
 					
@@ -184,25 +200,24 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					
 				}
 				currentScene = secondLevel->getSelectedScene();
 				secondLevel->clean();
 				delete(secondLevel);
 				secondLevel = nullptr;
 				cout<<"SECONDLEVEL out"<<endl;
-				SDL_DestroyTexture(Scene::textureSheet);
-				Scene::textureSheet = nullptr;
 			}break;
 			
 			case THIRDLEVEL:{
 				LevelScene* thirdLevel = new LevelScene();
 				cout<<"inside third level."<<endl;
-				Scene::textureSheet = TextureManager::LoadTexture("assets/Button.png");
 				thirdLevel->init("assets/levelBackGround.png", 3);
 				while(thirdLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					thirdLevel->update();
+					thirdLevel->update(deltaTime);
 					thirdLevel->render();
 					thirdLevel->handleEvents();
 					
@@ -214,6 +229,8 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					
 				}
 				currentScene = thirdLevel->getSelectedScene();
 				thirdLevel->clean();
@@ -221,8 +238,6 @@ int main(int argc, char* argv[]){
 				thirdLevel = nullptr;
 				cout<<"thirdLevel out"<<endl;
 				cout<<"THIRDLEVEL"<<endl;
-				SDL_DestroyTexture(Scene::textureSheet);
-				Scene::textureSheet = nullptr;
 			}break;
 			
 			
@@ -230,7 +245,8 @@ int main(int argc, char* argv[]){
 		game->handleEvents();
 		
 	}
-	
+	SDL_DestroyTexture(Scene::textureSheet);
+	Scene::textureSheet = nullptr;
 	game->clean();
 	cout<<"Game cleared"<<endl;
 	

@@ -27,7 +27,6 @@ class MenuScene : public Scene{
 		//int which = 0;
 		//SDL_Texture* backgroundImage;
 		std::vector<MenuItem*> items;
-		
 		//bool isRunning;
 		//GameScene selectedScene;
 };

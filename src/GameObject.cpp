@@ -1,14 +1,16 @@
 #include "header/GameObject.h"
 #include "header/TextureManager.h"
 #include "header/scene.h"
+
 GameObject::~GameObject(){}
 GameObject::GameObject(/*const char* textureSheet,*/ int x, int y, int w, int h){
 
 	//objectTexture = TextureManager::LoadTexture(textureSheet);
 	//std::cout<<"object texture loaded"<<std::endl;
 	//std::cout<<textureSheet<<std::endl;
-	xpos = x;
-	ypos = y;
+	
+	destRect.x = x;
+	destRect.y = y;
 	destRect.h = h;
 	destRect.w = w;
 	
@@ -28,13 +30,13 @@ SDL_Rect* GameObject::getDestRect(){
 }
 void GameObject::update(){
 
-	destRect.x = xpos;
-	destRect.y = ypos;
+	destRect.x = destRect.x ;
+	destRect.y = destRect.y ;
 	
-	/*destRect.h = h;
-	destRect.w = w;*/
-	
+	destRect.h = destRect.h;
+	destRect.w = destRect.w;
 }
+
 
 void GameObject::render(){
 
