@@ -11,9 +11,9 @@ class LevelScene : public Scene{
 		LevelScene();
 		~LevelScene();
 		
-		void update(float deltaTime);
+		void update();
 		void render();
-		void handleEvents(); 
+		void handleEvents(float deltaTime); 
 		void clean();
 		void addObstacle(GameObject *obstacle);
 		void addPlayer(Player* player){players.push_back(player);}
@@ -22,4 +22,5 @@ class LevelScene : public Scene{
 		std::vector<Player*> players;
 		MenuItem* LevelbackButton = nullptr;
 		std::vector<GameObject*> obstacles;
+		std::vector<Player*>::iterator playerItr;
 };

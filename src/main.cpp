@@ -135,9 +135,9 @@ int main(int argc, char* argv[]){
 				while(firstLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					firstLevel->update(deltaTime);
+					firstLevel->update();
 					firstLevel->render();
-					firstLevel->handleEvents();
+					firstLevel->handleEvents(deltaTime);
 					
 					frameTime = SDL_GetTicks() - frameStart;
 					
@@ -188,9 +188,9 @@ int main(int argc, char* argv[]){
 				while(secondLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					secondLevel->update(deltaTime);
+					secondLevel->update();
 					secondLevel->render();
-					secondLevel->handleEvents();
+					secondLevel->handleEvents(deltaTime);
 					
 					frameTime = SDL_GetTicks() - frameStart;
 					
@@ -217,9 +217,9 @@ int main(int argc, char* argv[]){
 				while(thirdLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					thirdLevel->update(deltaTime);
+					thirdLevel->update();
 					thirdLevel->render();
-					thirdLevel->handleEvents();
+					thirdLevel->handleEvents(deltaTime);
 					
 					frameTime = SDL_GetTicks() - frameStart;
 					

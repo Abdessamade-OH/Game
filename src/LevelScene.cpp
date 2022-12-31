@@ -23,14 +23,13 @@ LevelScene::LevelScene(){
 }
 LevelScene::~LevelScene(){}
 
-void LevelScene::update(float deltaTime){
+void LevelScene::update(){
 	std::vector<GameObject*>::iterator it;
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
 		(*it)->update();
 	}
-	std::vector<Player*>::iterator playerItr;
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
-		(*playerItr)->update(deltaTime);
+		(*playerItr)->update();
 	}
 	
 	//std::cout<<"before update"<<std::endl;
@@ -47,7 +46,6 @@ void LevelScene::render(){
 		(*it)->render();
 	}
 	
-	std::vector<Player*>::iterator playerItr;
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 		(*playerItr)->render();
 	}
@@ -60,7 +58,7 @@ void LevelScene::render(){
 	SDL_RenderPresent(Game::renderer);
 }
 
-void LevelScene::handleEvents(){
+void LevelScene::handleEvents(float deltaTime){
 	SDL_Event event;
 	int x,y;
 	
@@ -108,14 +106,48 @@ void LevelScene::handleEvents(){
 				}
 				
 			}break;
+	
+			case SDL_KEYDOWN:{
+				for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
+					if( (*playerItr)->getSelected() ){
+						SDL_Rect* temp = (*playerItr)->getDestRect();
+						switch( event.key.keysym.sym ){
+							case SDLK_UP:
+								temp->y -= Player::speed*deltaTime;
+								//destRect.y = ypos;
+							break;
+
+							case SDLK_DOWN:
+								temp->y += Player::speed*deltaTime;
+								//destRect.y = ypos;
+							break;
+
+							case SDLK_LEFT:
+								temp->x -= Player::speed*deltaTime;
+								//destRect.x = xpos;
+							break;
+
+							case SDLK_RIGHT:
+								temp->x += Player::speed*deltaTime;
+								//destRect.x = xpos;
+							break;
+
+							default:
+							break;
+						}
+					}
+					else
+						std::cout<<"no player selected, must be an error..."<<std::endl;
+				}
+			}break;
 			
-		}
 	}
+}
 }
 
 void LevelScene::clean(){
 	std::vector<GameObject*>::iterator it;
-	std::vector<Player*>::iterator playerItr;
+	
 	
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
 		(*it)->clean();

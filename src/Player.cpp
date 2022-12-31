@@ -18,36 +18,7 @@
 	int Player::speed = 100;
 	float Player::gravity = -9.81;
 	
-	void Player::update(float deltaTime){
+	void Player::update(){
 		GameObject::update();
-		/*SDL_Event event;
-	
-		while(SDL_PollEvent(&event)!=0){
-			if(event.type == SDL_KEYDOWN && selected){
-				switch( event.key.keysym.sym ){
-					case SDLK_UP:
-						ypos -= speed*deltaTime;
-						destRect.y = ypos;
-					break;
-
-					case SDLK_DOWN:
-						ypos += speed*deltaTime;
-						destRect.y = ypos;
-					break;
-
-					case SDLK_LEFT:
-						xpos -= speed*deltaTime;
-						destRect.x = xpos;
-					break;
-
-					case SDLK_RIGHT:
-						xpos += speed*deltaTime;
-						destRect.x = xpos;
-					break;
-
-					default:
-					break;
-				}
-			}
-		}*/
+		
 	}

@@ -15,7 +15,8 @@ class Player : public GameObject {
 	bool collisionDetection();
 	static int speed;
 	static float gravity;
-	void update(float deltaTime);
+	void update();
+	bool getSelected(){return selected;}
 	
 	bool getCanJump(){return this->canJump;}	
 

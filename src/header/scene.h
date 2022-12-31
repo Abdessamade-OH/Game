@@ -10,9 +10,9 @@ class Scene {
 		~Scene();
 		
 		void init(const char* filename, int which);
-		virtual void update(){}
-		virtual void render(){}
-		virtual void handleEvents() = 0;
+		virtual void update() =0;
+		virtual void render()=0;
+		virtual void handleEvents();
 		virtual void clean(){}
 		bool running(){return isRunning;}
 		GameScene getSelectedScene(){return selectedScene;}
