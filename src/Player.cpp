@@ -15,10 +15,27 @@
 		return false;
 	}
 	bool Player::collisionDetection(){}
-	int Player::speed = 100;
+	int Player::speed = 500;
 	float Player::gravity = -9.81;
 	
 	void Player::update(){
 		GameObject::update();
 		
 	}
+	
+	/*void Player::move(int dir, float deltaTime){
+		switch(dir){
+			case 0://up
+				this->destRect.y -= speed*deltaTime;
+			break;
+			case 1://down
+				this->destRect.y += speed*deltaTime;
+			break;
+			case 3://left
+				this->destRect.x -= speed*deltaTime;
+			break;
+			case 4://right
+				this->destRect.x += speed*deltaTime;
+			break;
+		}
+	}*/

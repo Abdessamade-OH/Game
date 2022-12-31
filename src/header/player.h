@@ -17,7 +17,7 @@ class Player : public GameObject {
 	static float gravity;
 	void update();
 	bool getSelected(){return selected;}
-	
+	//void move(int dir, float deltaTime);
 	bool getCanJump(){return this->canJump;}	
 
 	private:

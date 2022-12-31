@@ -30,6 +30,9 @@ void LevelScene::update(){
 	}
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 		(*playerItr)->update();
+		if( (*playerItr)->getSelected() ){
+			(*playerItr)->boundsCollision();
+		}
 	}
 	
 	//std::cout<<"before update"<<std::endl;
