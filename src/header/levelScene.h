@@ -16,7 +16,7 @@ class LevelScene : public Scene{
 		void handleEvents(float deltaTime); 
 		void clean();
 		void addObstacle(GameObject *obstacle);
-		void addPlayer(Player* player){players.push_back(player);}
+		void addPlayer(Player* player, bool selected);
 	
 	private:
 		std::vector<Player*> players;

@@ -13,7 +13,9 @@ class Scene {
 		/*virtual void update() =0;
 		virtual void render()=0;
 		virtual void handleEvents();
-		virtual void clean(){}*/
+		virtual void clean(){}
+		were causing vtable error
+		*/
 		bool running(){return isRunning;}
 		GameScene getSelectedScene(){return selectedScene;}
 		static SDL_Texture* textureSheet;

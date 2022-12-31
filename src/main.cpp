@@ -166,7 +166,7 @@ int main(int argc, char* argv[]){
 				GameObject* ground1 = new GameObject( 0, 600 - (12*4), 300, 12*4);
 				ground1->setSrcRect(0, 20, 64, 12);
 				
-				GameObject* ground2 = new GameObject( 500, 600 - (12*4), 300, 12*4);
+				GameObject* ground2 = new GameObject( 500, 300 - (12*4), 300, 12*4);
 				ground2->setSrcRect(0, 20, 64, 12);
 				
 				/*GameObject* wall1 = new GameObject( 0, 0, 12, 600);
@@ -179,11 +179,16 @@ int main(int argc, char* argv[]){
 				secondLevel->addObstacle(wall2);*/
 				
 				Player* firstPlayer = new Player(380, 300, 22*3, 28*3);
-				firstPlayer->setSrcRect(64, 0, 22, 28);				
+				firstPlayer->setSrcRect(64, 0, 22, 28);	
+				
+				/*Player* secondPlayer = new Player(200, 300, 22*3, 28*3);
+				secondPlayer->setSrcRect(64, 0, 22, 28);*/			
 				
 				secondLevel->addObstacle(ground1);
 				secondLevel->addObstacle(ground2);
-				secondLevel->addPlayer(firstPlayer);
+				secondLevel->addPlayer(firstPlayer, true);
+				//secondLevel->addPlayer(secondPlayer, false);
+				/*I need to make a condition for if both are true, maybe if one true is found make all rest false and if no one is true, make the first true*/
 				
 				while(secondLevel->running()){
 					frameStart = SDL_GetTicks();
@@ -191,7 +196,7 @@ int main(int argc, char* argv[]){
 					secondLevel->update();
 					secondLevel->render();
 					secondLevel->handleEvents(deltaTime);
-					
+					cout<<"after handleEvents"<<endl;
 					frameTime = SDL_GetTicks() - frameStart;
 					
 					
@@ -230,6 +235,8 @@ int main(int argc, char* argv[]){
 					}
 					
 					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					if (deltaTime>0.15f)
+						deltaTime=0.15f;
 					
 				}
 				currentScene = thirdLevel->getSelectedScene();

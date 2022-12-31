@@ -24,6 +24,7 @@ LevelScene::LevelScene(){
 LevelScene::~LevelScene(){}
 
 void LevelScene::update(){
+	bool isOver = false;
 	std::vector<GameObject*>::iterator it;
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
 		(*it)->update();
@@ -31,8 +32,16 @@ void LevelScene::update(){
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 		(*playerItr)->update();
 		if( (*playerItr)->getSelected() ){
-			(*playerItr)->boundsCollision();
+			isOver = (*playerItr)->boundsCollision();
+			for(it=obstacles.begin(); it!=obstacles.end(); it++){
+				(*playerItr)->fullCollision((*it)->getDestRect());
+			}
 		}
+	}
+	
+	if ( isOver==true ){
+		selectedScene = LEVELMENU;
+		isRunning=false;
 	}
 	
 	//std::cout<<"before update"<<std::endl;
@@ -64,7 +73,7 @@ void LevelScene::render(){
 void LevelScene::handleEvents(float deltaTime){
 	SDL_Event event;
 	int x,y;
-	
+	std::cout<<deltaTime<<std::endl;
 	while(SDL_PollEvent(&event)){
 		switch(event.type){
 			case SDL_QUIT:{
@@ -111,43 +120,78 @@ void LevelScene::handleEvents(float deltaTime){
 			}break;
 	
 			case SDL_KEYDOWN:{
+				//std::cout<<deltaTime<<std::endl;
 				for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 					if( (*playerItr)->getSelected() ){
 						SDL_Rect* temp = (*playerItr)->getDestRect();
 						switch( event.key.keysym.sym ){
 							case SDLK_UP:
+							case SDLK_w:
+							case SDLK_z:
 								temp->y -= Player::speed*deltaTime;
+								(*playerItr)->dir = 0;
 								//destRect.y = ypos;
 							break;
 
 							case SDLK_DOWN:
+							case SDLK_s:
 								temp->y += Player::speed*deltaTime;
+								(*playerItr)->dir = 1;
 								//destRect.y = ypos;
 							break;
 
 							case SDLK_LEFT:
+							case SDLK_a:
+							case SDLK_q:
 								temp->x -= Player::speed*deltaTime;
+								(*playerItr)->dir = 3;
 								//destRect.x = xpos;
 							break;
 
 							case SDLK_RIGHT:
+							case SDLK_d:
 								temp->x += Player::speed*deltaTime;
+								(*playerItr)->dir = 4;
 								//destRect.x = xpos;
 							break;
+							
+							/*case SDLK_s:{
+								(*playerItr)->setSelected(false);
+								std::next((*playerItr))->setSelected(true);
+							}break;*/
+							
+							case SDLK_1:{
+								if(players.size()>1){
+									players[0]->setSelected(false);
+									players[1]->setSelected(true);
+								}
+							}break;
+							
+							case SDLK_2:{
+								if(players.size()>1){
+									players[1]->setSelected(false);
+									players[0]->setSelected(true);
+								}
+							}break;
 
 							default:
 							break;
-						}
 					}
-					else
-						std::cout<<"no player selected, must be an error..."<<std::endl;
 				}
 			}break;
 			
+			default:
+			break;
+			
+		}
 	}
 }
 }
 
+void LevelScene::addPlayer(Player* player, bool selected){
+	player->setSelected(selected);
+	players.push_back(player);
+}
 void LevelScene::clean(){
 	std::vector<GameObject*>::iterator it;
 	
