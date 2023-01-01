@@ -3,7 +3,7 @@
 	
 	
 int Player::speed = 350;
-float Player::gravity = 800;
+float Player::gravity = 1200;
 
 Player::Player(float x, float y, int w, int h):GameObject::GameObject(x, y, w, h){}
 Player::~Player(){}
@@ -61,6 +61,9 @@ void Player::verticalCollision(SDL_FRect* rect, float deltaTime){
 			hitObstacle = true;
 			jumpSpeed = 0.0f;
 			destRect.y = rect->y - destRect.h;
+			jumped = false;
+			
+			//the solution to the key being released but in case player was comming of air, then make vel.x=0
 			if(airborn)
 				velocity.x = 0;
 			//std::cout<<"hit obstacle"<<hitObstacle<<std::endl;
@@ -90,8 +93,12 @@ void Player::update(float deltaTime){
 	//GameObject::update();
 	if(!airborn)
 		destRect.x += velocity.x*speed*deltaTime;
-	else
-		destRect.x += velocity.x*speed*deltaTime*0.7;
+	else{
+		if(jumped)
+			destRect.x += velocity.x*speed*deltaTime*0.7;
+		else
+			destRect.x += velocity.x*speed*deltaTime*0.1;
+	}
 	//destRect.y += velocity.y*speed*deltaTime;
 	
 	//destRect.x += 100 * 0.01666;
@@ -108,7 +115,9 @@ void Player::update(float deltaTime){
 			velocity.y = 1;
 		if (jumpSpeed>600)
 			jumpSpeed = 600;
+			
 		airborn = true;
+		
 	}
 	else
 		airborn = false;

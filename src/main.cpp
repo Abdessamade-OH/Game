@@ -181,7 +181,7 @@ int main(int argc, char* argv[]){
 				secondLevel->addObstacle(wall1);
 				secondLevel->addObstacle(wall2);*/
 				
-				Player* firstPlayer = new Player(float(380), float(300), 22*3, 28*3);
+				Player* firstPlayer = new Player(float(380), float(300), 22*1.5, 28*1.5);
 				firstPlayer->setSrcRect(65, 0, 21, 28);	
 				
 				/*Player* secondPlayer = new Player(200, 300, 22*3, 28*3);

@@ -25,7 +25,7 @@ class Player : public GameObject {
 	bool getSelected(){return selected;}
 	void setSelected(bool selected){this->selected = selected;}
 	//void move(int dir, float deltaTime);
-	bool getCanJump(){return this->canJump;}	
+	//bool getCanJump(){return this->canJump;}	
 	int dir = 0;
 	Velocity setVelocityX(int veloX){ velocity.x = veloX;}
 	Velocity setVelocityY(int veloY){ velocity.y = veloY;}
@@ -34,11 +34,13 @@ class Player : public GameObject {
 	void setJumpSpeed(float num){jumpSpeed = num;}
 	float getJumpSpeed(){return jumpSpeed;}
 	bool hitObstacle = false;
-	float JUMPSPEED = -450;
+	float JUMPSPEED = -600;
+	
+	bool jumped = false;
 	private:
 		
 		Velocity velocity = {0, 0};
-		bool canJump = true;
+		
 		bool selected;
 		bool airborn = true;
 		float jumpSpeed = 0.0f;

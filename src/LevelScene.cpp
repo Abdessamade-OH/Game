@@ -138,6 +138,8 @@ void LevelScene::handleEvents(float deltaTime){
 									(*playerItr)->setAirborn(true);
 									(*playerItr)->setJumpSpeed((*playerItr)->JUMPSPEED);
 									std::cout<<(*playerItr)->getJumpSpeed()<<std::endl;
+									
+									(*playerItr)->jumped = true;
 								}
 							break;
 
@@ -159,6 +161,8 @@ void LevelScene::handleEvents(float deltaTime){
 									(*playerItr)->dir = 3;
 									//destRect.x = xpos;
 									std::cout<<"move left"<<std::endl;
+									
+									
 								}
 							break;
 
@@ -201,13 +205,7 @@ void LevelScene::handleEvents(float deltaTime){
 				for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 					if( (*playerItr)->getSelected() ){
 						switch( event.key.keysym.sym ){
-							/*case SDLK_UP:
-							case SDLK_w:
-							case SDLK_z:
-								(*playerItr)->setVelocityY(0);
-								(*playerItr)->dir = 0;
-							break;*/
-
+			
 							case SDLK_LEFT:
 							case SDLK_a:
 							case SDLK_q:
