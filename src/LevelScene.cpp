@@ -23,7 +23,7 @@ LevelScene::LevelScene(){
 }
 LevelScene::~LevelScene(){}
 
-void LevelScene::update(double deltaTime){
+void LevelScene::update(float deltaTime){
 	bool isOver = false;
 	std::vector<GameObject*>::iterator it;
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
@@ -70,7 +70,7 @@ void LevelScene::render(){
 	SDL_RenderPresent(Game::renderer);
 }
 
-void LevelScene::handleEvents(double deltaTime){
+void LevelScene::handleEvents(float deltaTime){
 	SDL_Event event;
 	int x,y;
 	std::cout<<deltaTime<<std::endl;

@@ -20,7 +20,7 @@ class Player : public GameObject {
 	bool collisionDetection();
 	static int speed;
 	static float gravity;
-	void update(double deltaTime);
+	void update(float deltaTime);
 	bool getSelected(){return selected;}
 	void setSelected(bool selected){this->selected = selected;}
 	//void move(int dir, float deltaTime);

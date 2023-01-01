@@ -62,7 +62,7 @@ bool Player::boundsCollision(){
 
 bool Player::collisionDetection(){}
 
-void Player::update(double deltaTime){
+void Player::update(float deltaTime){
 	//GameObject::update();
 	destRect.x += velocity.x*speed*deltaTime;
 	destRect.y += velocity.y*speed*deltaTime;

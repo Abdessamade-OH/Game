@@ -11,9 +11,9 @@ class LevelScene : public Scene{
 		LevelScene();
 		~LevelScene();
 		
-		void update(double deltaTime);
+		void update(float deltaTime);
 		void render();
-		void handleEvents(double deltaTime); 
+		void handleEvents(float deltaTime); 
 		void clean();
 		void addObstacle(GameObject *obstacle);
 		void addPlayer(Player* player, bool selected);

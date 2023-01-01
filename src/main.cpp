@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 	
 	game = new Game();
 	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
-	double deltaTime = 0;
+	float deltaTime = 0;
 	Scene::textureSheet = TextureManager::LoadTexture("assets/textureSheet.png");
 	while(game->running()){
 		
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				currentScene = mainMenu->getSelectedScene();
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]){
 							SDL_Delay(frameDelay - frameTime);
 						}
 					
-					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				cout<<"leaving levelMenu"<<endl;
@@ -147,7 +147,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					cout<<deltaTime<<endl;
 					
 				}
@@ -205,7 +205,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				currentScene = secondLevel->getSelectedScene();
@@ -234,7 +234,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
 					if (deltaTime>0.15f)
 						deltaTime=0.15f;
 					
