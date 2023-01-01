@@ -14,15 +14,15 @@ void Player::fullCollision(SDL_FRect* rect){
 	//if(temp.h!=0){
 		if( (destRect.x + destRect.w >= rect->x) &&
 			(destRect.x + destRect.w < rect->x + rect->w) &&
-			(destRect.y + destRect.h > rect->y) &&
-			(destRect.y < rect->y + rect->h) &&
+			(destRect.y + destRect.h > rect->y +5) &&
+			(destRect.y < rect->y + rect->h -5) &&
 			(velocity.x==1) ){
 				destRect.x = rect->x - destRect.w;
 		}
 		if( (destRect.x <= rect->x + rect->w) &&
 			(destRect.x > rect->x) &&
-			(destRect.y + destRect.h > rect->y) &&
-			(destRect.y < rect->y + rect->h) &&
+			(destRect.y + destRect.h > rect->y +5) &&
+			(destRect.y < rect->y + rect->h -5) &&
 			(velocity.x==-1) ){
 				destRect.x = rect->x + rect->w;
 		}
@@ -40,6 +40,8 @@ void Player::fullCollision(SDL_FRect* rect){
 			(destRect.x < rect->x + rect->w - 5) &&
 			(velocity.y==-1) ){
 				destRect.y = rect->y + rect->h ;
+				jumpSpeed=100;
+				
 		}
 	//}
 	//temp = destRect;

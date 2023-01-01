@@ -169,6 +169,9 @@ int main(int argc, char* argv[]){
 				GameObject* ground2 = new GameObject( 500, 450, 300, 12*4);
 				ground2->setSrcRect(0, 20, 64, 12);
 				
+				GameObject* ground3 = new GameObject( 100, 350, 300, 12*4);
+				ground3->setSrcRect(0, 20, 64, 12);
+				
 				/*GameObject* wall1 = new GameObject( 0, 0, 12, 600);
 				wall1->setSrcRect(86, 0, 12, 32);
 				
@@ -186,6 +189,7 @@ int main(int argc, char* argv[]){
 				
 				secondLevel->addObstacle(ground1);
 				secondLevel->addObstacle(ground2);
+				secondLevel->addObstacle(ground3);
 				secondLevel->addPlayer(firstPlayer, true);
 				//secondLevel->addPlayer(secondPlayer, false);
 				/*I need to make a condition for if both are true, maybe if one true is found make all rest false and if no one is true, make the first true*/
