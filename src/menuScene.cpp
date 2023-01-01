@@ -40,7 +40,7 @@ void MenuScene::addItem(MenuItem *item){
 void MenuScene::handleEvents(){
 	SDL_Event event;
 	int x,y;
-	SDL_Rect* itemRect;
+	SDL_FRect* itemRect;
 	while(SDL_PollEvent(&event)){
 		switch(event.type){
 			case SDL_QUIT:

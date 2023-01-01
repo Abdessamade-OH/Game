@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 	
 	game = new Game();
 	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
-	float deltaTime = 0;
+	double deltaTime = 0;
 	Scene::textureSheet = TextureManager::LoadTexture("assets/textureSheet.png");
 	while(game->running()){
 		
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				currentScene = mainMenu->getSelectedScene();
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]){
 							SDL_Delay(frameDelay - frameTime);
 						}
 					
-					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				cout<<"leaving levelMenu"<<endl;
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]){
 				while(firstLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					firstLevel->update();
+					firstLevel->update(deltaTime);
 					firstLevel->render();
 					firstLevel->handleEvents(deltaTime);
 					
@@ -147,7 +147,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
 					cout<<deltaTime<<endl;
 					
 				}
@@ -178,7 +178,7 @@ int main(int argc, char* argv[]){
 				secondLevel->addObstacle(wall1);
 				secondLevel->addObstacle(wall2);*/
 				
-				Player* firstPlayer = new Player(380, 300, 22*3, 28*3);
+				Player* firstPlayer = new Player(float(380), float(300), 22*3, 28*3);
 				firstPlayer->setSrcRect(64, 0, 22, 28);	
 				
 				/*Player* secondPlayer = new Player(200, 300, 22*3, 28*3);
@@ -193,7 +193,7 @@ int main(int argc, char* argv[]){
 				while(secondLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					secondLevel->update();
+					secondLevel->update(deltaTime);
 					secondLevel->render();
 					secondLevel->handleEvents(deltaTime);
 					cout<<"after handleEvents"<<endl;
@@ -205,7 +205,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
 					
 				}
 				currentScene = secondLevel->getSelectedScene();
@@ -222,7 +222,7 @@ int main(int argc, char* argv[]){
 				while(thirdLevel->running()){
 					frameStart = SDL_GetTicks();
 					
-					thirdLevel->update();
+					thirdLevel->update(deltaTime);
 					thirdLevel->render();
 					thirdLevel->handleEvents(deltaTime);
 					
@@ -234,7 +234,7 @@ int main(int argc, char* argv[]){
 						SDL_Delay(frameDelay - frameTime);
 					}
 					
-					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
+					deltaTime = (double)(SDL_GetTicks() - frameStart)/1000;
 					if (deltaTime>0.15f)
 						deltaTime=0.15f;
 					

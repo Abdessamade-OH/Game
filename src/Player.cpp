@@ -2,13 +2,13 @@
 
 	
 	
-int Player::speed = 800;
+int Player::speed = 360;
 float Player::gravity = -9.81;
 
 Player::Player(int x, int y, int w, int h):GameObject::GameObject(x, y, w, h){}
 Player::~Player(){}
 
-void Player::fullCollision(SDL_Rect* rect){
+void Player::fullCollision(SDL_FRect* rect){
 	//SDL_Rect temp = {0,0,0,0};
 	//std::cout<<temp.h<<std::endl;
 	//if(temp.h!=0){
@@ -16,14 +16,14 @@ void Player::fullCollision(SDL_Rect* rect){
 			(destRect.x + destRect.w < rect->x + rect->w) &&
 			(destRect.y + destRect.h > rect->y) &&
 			(destRect.y < rect->y + rect->h) &&
-			(dir==4) ){
+			(velocity.x==1) ){
 				destRect.x = rect->x - destRect.w;
 		}
 		if( (destRect.x <= rect->x + rect->w) &&
 			(destRect.x > rect->x) &&
 			(destRect.y + destRect.h > rect->y) &&
 			(destRect.y < rect->y + rect->h) &&
-			(dir==3) ){
+			(velocity.x==-1) ){
 				destRect.x = rect->x + rect->w;
 		}
 			
@@ -31,14 +31,14 @@ void Player::fullCollision(SDL_Rect* rect){
 			(destRect.y + destRect.h < rect->y + rect->h) &&
 			(destRect.x + destRect.w > rect->x) &&
 			(destRect.x < rect->x + rect->w) &&
-			(dir==1) ){
+			(velocity.y==1) ){
 				destRect.y = rect->y - destRect.h ;
 		}
 		if( (destRect.y <= rect->y + rect->h ) &&
 			(destRect.y > rect->y) &&
 			(destRect.x + destRect.w > rect->x) &&
 			(destRect.x < rect->x + rect->w) &&
-			(dir==0) ){
+			(velocity.y==-1) ){
 				destRect.y = rect->y + rect->h ;
 		}
 	//}
@@ -46,7 +46,9 @@ void Player::fullCollision(SDL_Rect* rect){
 	//std::cout<<temp.h<<std::endl;
 }
 
-bool Player::jump(){}
+void Player::jump(){
+
+}
 
 bool Player::boundsCollision(){
 	if(destRect.x + destRect.w >= 800-20)
@@ -60,10 +62,14 @@ bool Player::boundsCollision(){
 
 bool Player::collisionDetection(){}
 
-void Player::update(){
+void Player::update(double deltaTime){
 	//GameObject::update();
+	destRect.x += velocity.x*speed*deltaTime;
+	destRect.y += velocity.y*speed*deltaTime;
 	
+	//destRect.x += 100 * 0.01666;
 }
+
 
 /*void Player::move(int dir, float deltaTime){
 	switch(dir){

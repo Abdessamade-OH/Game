@@ -4,7 +4,7 @@
 
 MenuItem::~MenuItem(){}
 
-MenuItem::MenuItem(bool buttonState, const char* text, const char* fontFile, /*const char* textureSheet,*/ int x, int y, int w, int h):GameObject(/*textureSheet,*/ x, y, w, h){
+MenuItem::MenuItem(bool buttonState, const char* text, const char* fontFile, /*const char* textureSheet,*/ float x, float y, int w, int h):GameObject(/*textureSheet,*/ x, y, w, h){
 	this->text = text;
 	TTF_Init();
 	this->button = buttonState;

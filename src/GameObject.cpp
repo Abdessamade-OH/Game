@@ -3,7 +3,7 @@
 #include "header/scene.h"
 
 GameObject::~GameObject(){}
-GameObject::GameObject(/*const char* textureSheet,*/ int x, int y, int w, int h){
+GameObject::GameObject(/*const char* textureSheet,*/ float x, float y, int w, int h){
 
 	//objectTexture = TextureManager::LoadTexture(textureSheet);
 	//std::cout<<"object texture loaded"<<std::endl;
@@ -25,7 +25,7 @@ void GameObject::setSrcRect(int x, int y, int w, int h){
 	srcRect.h = h;
 	srcRect.w = w;
 }
-SDL_Rect* GameObject::getDestRect(){
+SDL_FRect* GameObject::getDestRect(){
 	return &destRect;
 }
 void GameObject::update(){
@@ -40,7 +40,7 @@ void GameObject::update(){
 
 void GameObject::render(){
 
-	SDL_RenderCopy(Game::renderer, Scene::textureSheet, &srcRect, &destRect);
+	SDL_RenderCopyF(Game::renderer, Scene::textureSheet, &srcRect, &destRect);
 	//std::cout<<"object rendered"<<std::endl;
 }
 
