@@ -11,10 +11,11 @@ class Player : public GameObject {
 
 	
 	public:
-	Player(int x, int y, int w, int h);
+	Player(float x, float y, int w, int h);
 	~Player();
 	
 	void fullCollision(SDL_FRect* rect);
+	void verticalCollision(SDL_FRect* rect, float deltaTime);
 	void jump();
 	bool boundsCollision();
 	bool collisionDetection();
@@ -28,10 +29,18 @@ class Player : public GameObject {
 	int dir = 0;
 	Velocity setVelocityX(int veloX){ velocity.x = veloX;}
 	Velocity setVelocityY(int veloY){ velocity.y = veloY;}
+	bool isAirborn(){return airborn;}
+	void setAirborn(bool air){this->airborn = air;}
+	void setJumpSpeed(float num){jumpSpeed = num;}
+	float getJumpSpeed(){return jumpSpeed;}
+	bool hitObstacle = false;
+	float JUMPSPEED = -450;
 	private:
 		
 		Velocity velocity = {0, 0};
 		bool canJump = true;
 		bool selected;
+		bool airborn = true;
+		float jumpSpeed = 0.0f;
 		
 };

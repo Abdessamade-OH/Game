@@ -33,8 +33,10 @@ void LevelScene::update(float deltaTime){
 		(*playerItr)->update(deltaTime);
 		if( (*playerItr)->getSelected() ){
 			isOver = (*playerItr)->boundsCollision();
+			(*playerItr)->hitObstacle = false;
 			for(it=obstacles.begin(); it!=obstacles.end(); it++){
 				(*playerItr)->fullCollision((*it)->getDestRect());
+				(*playerItr)->verticalCollision((*it)->getDestRect(), deltaTime);
 			}
 		}
 	}
@@ -73,7 +75,7 @@ void LevelScene::render(){
 void LevelScene::handleEvents(float deltaTime){
 	SDL_Event event;
 	int x,y;
-	std::cout<<deltaTime<<std::endl;
+	//std::cout<<deltaTime<<std::endl;
 	while(SDL_PollEvent(&event)){
 		switch(event.type){
 			case SDL_QUIT:{
@@ -128,35 +130,46 @@ void LevelScene::handleEvents(float deltaTime){
 							case SDLK_UP:
 							case SDLK_w:
 							case SDLK_z:
-								(*playerItr)->setVelocityY(-1);
-								(*playerItr)->setVelocityX(0);
-								(*playerItr)->dir = 0;
-								//destRect.y = ypos;
+								if((*playerItr)->isAirborn() == false){
+									//(*playerItr)->setVelocityY(-1);
+									//(*playerItr)->hitObstacle = false;
+									(*playerItr)->setVelocityY(-1);
+									std::cout<<"up"<<(*playerItr)->hitObstacle<<std::endl;
+									(*playerItr)->setAirborn(true);
+									(*playerItr)->setJumpSpeed((*playerItr)->JUMPSPEED);
+									std::cout<<(*playerItr)->getJumpSpeed()<<std::endl;
+								}
 							break;
 
-							case SDLK_DOWN:
+							/*case SDLK_DOWN:
 							case SDLK_s:
 								(*playerItr)->setVelocityY(1);
 								(*playerItr)->setVelocityX(0);
 								(*playerItr)->dir = 1;
 								//destRect.y = ypos;
-							break;
+							break;*/
 
 							case SDLK_LEFT:
 							case SDLK_a:
 							case SDLK_q:
-								(*playerItr)->setVelocityX(-1);
-								(*playerItr)->setVelocityY(0);
-								(*playerItr)->dir = 3;
-								//destRect.x = xpos;
+								std::cout<<"left"<<(*playerItr)->hitObstacle<<std::endl;
+								if(!(*playerItr)->isAirborn()){
+									(*playerItr)->setVelocityX(-1);
+									//(*playerItr)->setVelocityY(0);
+									(*playerItr)->dir = 3;
+									//destRect.x = xpos;
+									std::cout<<"move left"<<std::endl;
+								}
 							break;
 
 							case SDLK_RIGHT:
 							case SDLK_d:
-								(*playerItr)->setVelocityX(1);
-								(*playerItr)->setVelocityY(0);
-								(*playerItr)->dir = 4;
-								//destRect.x = xpos;
+								if(!(*playerItr)->isAirborn()){
+									(*playerItr)->setVelocityX(1);
+									//(*playerItr)->setVelocityY(0);
+									(*playerItr)->dir = 4;
+									//destRect.x = xpos;
+								}
 							break;
 							
 							/*case SDLK_s:{
@@ -188,30 +201,28 @@ void LevelScene::handleEvents(float deltaTime){
 				for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 					if( (*playerItr)->getSelected() ){
 						switch( event.key.keysym.sym ){
-							case SDLK_UP:
+							/*case SDLK_UP:
 							case SDLK_w:
 							case SDLK_z:
 								(*playerItr)->setVelocityY(0);
 								(*playerItr)->dir = 0;
-							break;
-
-							case SDLK_DOWN:
-							case SDLK_s:
-								(*playerItr)->setVelocityY(0);
-								(*playerItr)->dir = 1;
-							break;
+							break;*/
 
 							case SDLK_LEFT:
 							case SDLK_a:
 							case SDLK_q:
-								(*playerItr)->setVelocityX(0);
-								(*playerItr)->dir = 3;
+								if( !(*playerItr)->isAirborn() ){
+									(*playerItr)->setVelocityX(0);
+									(*playerItr)->dir = 3;
+								}
 							break;
 
 							case SDLK_RIGHT:
 							case SDLK_d:
-								(*playerItr)->setVelocityX(0);
-								(*playerItr)->dir = 4;
+								if( !(*playerItr)->isAirborn() ){
+									(*playerItr)->setVelocityX(0);
+									(*playerItr)->dir = 4;
+								}
 							break;
 						}
 					}

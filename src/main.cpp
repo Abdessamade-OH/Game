@@ -163,10 +163,10 @@ int main(int argc, char* argv[]){
 				cout<<"inside second level."<<endl;
 				secondLevel->init("assets/levelBackGround.png", 2);
 				
-				GameObject* ground1 = new GameObject( 0, 600 - (12*4), 300, 12*4);
+				GameObject* ground1 = new GameObject( 0, 600 - (12*4), 600, 12*4);
 				ground1->setSrcRect(0, 20, 64, 12);
 				
-				GameObject* ground2 = new GameObject( 500, 300 - (12*4), 300, 12*4);
+				GameObject* ground2 = new GameObject( 500, 450, 300, 12*4);
 				ground2->setSrcRect(0, 20, 64, 12);
 				
 				/*GameObject* wall1 = new GameObject( 0, 0, 12, 600);
@@ -179,7 +179,7 @@ int main(int argc, char* argv[]){
 				secondLevel->addObstacle(wall2);*/
 				
 				Player* firstPlayer = new Player(float(380), float(300), 22*3, 28*3);
-				firstPlayer->setSrcRect(64, 0, 22, 28);	
+				firstPlayer->setSrcRect(65, 0, 21, 28);	
 				
 				/*Player* secondPlayer = new Player(200, 300, 22*3, 28*3);
 				secondPlayer->setSrcRect(64, 0, 22, 28);*/			
@@ -196,7 +196,7 @@ int main(int argc, char* argv[]){
 					secondLevel->update(deltaTime);
 					secondLevel->render();
 					secondLevel->handleEvents(deltaTime);
-					cout<<"after handleEvents"<<endl;
+					//cout<<"after handleEvents"<<endl;
 					frameTime = SDL_GetTicks() - frameStart;
 					
 					

@@ -2,10 +2,10 @@
 
 	
 	
-int Player::speed = 360;
-float Player::gravity = -9.81;
+int Player::speed = 350;
+float Player::gravity = 800;
 
-Player::Player(int x, int y, int w, int h):GameObject::GameObject(x, y, w, h){}
+Player::Player(float x, float y, int w, int h):GameObject::GameObject(x, y, w, h){}
 Player::~Player(){}
 
 void Player::fullCollision(SDL_FRect* rect){
@@ -27,23 +27,44 @@ void Player::fullCollision(SDL_FRect* rect){
 				destRect.x = rect->x + rect->w;
 		}
 			
-		if( (destRect.y + destRect.h >= rect->y ) &&
+		/*if( (destRect.y + destRect.h >= rect->y ) &&
 			(destRect.y + destRect.h < rect->y + rect->h) &&
 			(destRect.x + destRect.w > rect->x) &&
 			(destRect.x < rect->x + rect->w) &&
 			(velocity.y==1) ){
 				destRect.y = rect->y - destRect.h ;
-		}
+		}*/
 		if( (destRect.y <= rect->y + rect->h ) &&
 			(destRect.y > rect->y) &&
-			(destRect.x + destRect.w > rect->x) &&
-			(destRect.x < rect->x + rect->w) &&
+			(destRect.x + destRect.w > rect->x + 5) &&
+			(destRect.x < rect->x + rect->w - 5) &&
 			(velocity.y==-1) ){
 				destRect.y = rect->y + rect->h ;
 		}
 	//}
 	//temp = destRect;
 	//std::cout<<temp.h<<std::endl;
+}
+
+void Player::verticalCollision(SDL_FRect* rect, float deltaTime){
+	
+	if( (destRect.x + destRect.w > rect->x) &&
+		(destRect.x < rect->x + rect->w) &&
+		(rect->y >= destRect.y + destRect.h) &&
+		(rect->y <= destRect.y + destRect.h + (jumpSpeed*deltaTime)) &&
+		(jumpSpeed>=0) )
+		{
+			//velocity.y = 1;
+			//airborn = false;
+			hitObstacle = true;
+			jumpSpeed = 0.0f;
+			destRect.y = rect->y - destRect.h;
+			if(airborn)
+				velocity.x = 0;
+			//std::cout<<"hit obstacle"<<hitObstacle<<std::endl;
+		}
+		
+		
 }
 
 void Player::jump(){
@@ -62,12 +83,35 @@ bool Player::boundsCollision(){
 
 bool Player::collisionDetection(){}
 
+
 void Player::update(float deltaTime){
 	//GameObject::update();
-	destRect.x += velocity.x*speed*deltaTime;
-	destRect.y += velocity.y*speed*deltaTime;
+	if(!airborn)
+		destRect.x += velocity.x*speed*deltaTime;
+	else
+		destRect.x += velocity.x*speed*deltaTime*0.7;
+	//destRect.y += velocity.y*speed*deltaTime;
 	
 	//destRect.x += 100 * 0.01666;
+	
+	/*destRect.y += jumpSpeed*deltaTime*velocity.y;
+	if(velocity.y == -1)
+		jumpSpeed += gravity;*/
+	//std::cout<<"function update. hit obstacle"<<hitObstacle<<std::endl;
+	if(!hitObstacle){
+		std::cout<<jumpSpeed<<std::endl;
+		destRect.y += jumpSpeed*deltaTime;
+		jumpSpeed += gravity*deltaTime;
+		if(jumpSpeed>50)
+			velocity.y = 1;
+		if (jumpSpeed>600)
+			jumpSpeed = 600;
+		airborn = true;
+	}
+	else
+		airborn = false;
+	
+	//std::cout<<"airborn"<<airborn<<std::endl;
 }
 
 
