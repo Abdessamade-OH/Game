@@ -37,6 +37,12 @@ void GameObject::update(){
 	destRect.w = destRect.w;
 }
 
+void GameObject::setDestRect(float x, float y, float w, float h){
+	this->destRect.x = x;
+	this->destRect.y = y;
+	this->destRect.w = w;
+	this->destRect.h = h;
+}
 
 void GameObject::render(){
 

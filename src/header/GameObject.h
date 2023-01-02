@@ -15,6 +15,7 @@ class GameObject{
 		SDL_FRect* getDestRect();
 		virtual void clean();
 		//std::vector<int> getPos();
+		void setDestRect(float x, float y, float w, float h);
 		
 	protected:
 		

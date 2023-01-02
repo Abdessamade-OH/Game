@@ -95,14 +95,22 @@ bool Player::boundsCollision(){
 
 
 bool Player::collisionDetection(SDL_FRect* rect){
-
-	if( (destRect.x + destRect.w >= rect->x) &&
-		(destRect.x <= rect->x + rect->w) &&
+	
+	
+	if( /*(rect->x + rect->w>= destRect.x) &&
+		(rect->x <= destRect.x + destRect.w) &&
+		(rect->y + rect->h >= destRect.y)&&
+		(rect->y <= destRect.y + destRect.h)*/
+		
+		(destRect.x + destRect.w >= rect->x) &&
+		(rect->x + rect->w >= destRect.x)&&
 		(destRect.y + destRect.h >= rect->y) &&
-		(destRect.y <= rect->y + rect->h) )
+		(rect->y + rect->h >= destRect.y)
+		 )
 		{
 			return true;
 		}
+	return false;
 }
 
 

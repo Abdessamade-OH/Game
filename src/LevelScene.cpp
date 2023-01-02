@@ -24,6 +24,7 @@ LevelScene::LevelScene(){
 LevelScene::~LevelScene(){}
 
 void LevelScene::update(float deltaTime){
+	//float x,y;
 	bool isOver = false;
 	std::vector<GameObject*>::iterator it;
 	for(it=obstacles.begin(); it!=obstacles.end(); it++){
@@ -38,15 +39,19 @@ void LevelScene::update(float deltaTime){
 				(*playerItr)->fullCollision((*it)->getDestRect());
 				(*playerItr)->verticalCollision((*it)->getDestRect(), deltaTime);
 			}
-			if(key!=nullptr){
+			if(key!=nullptr && !unlocked){
 				if( (*playerItr)->collisionDetection( key->getDestRect() ) ){
+					
 					unlocked = true;
 					std::cout<<"key touched"<<std::endl;
+					key->setDestRect(20 + 32*2 + 20, 35, 15*1.5, 10*1.5);
 				}
 			}
+			(*playerItr)->fullCollision(key->getDestRect());
 		}
 	}
 	
+		
 	if ( isOver==true ){
 		selectedScene = LEVELMENU;
 		isRunning=false;
@@ -232,6 +237,16 @@ void LevelScene::handleEvents(float deltaTime){
 								//if( !(*playerItr)->isAirborn() ){
 									(*playerItr)->setVelocityX(0);
 									(*playerItr)->dir = 4;
+								//}
+							break;
+							
+							case SDLK_UP:
+							case SDLK_w:
+							case SDLK_z:
+								//if( !(*playerItr)->isAirborn() ){
+									//(*playerItr)->setVelocityX(0);
+									//(*playerItr)->dir = 4;
+									(*playerItr)->setJumpSpeed(-(*playerItr)->JUMPSPEED/3);
 								//}
 							break;
 						}
