@@ -17,10 +17,15 @@ class LevelScene : public Scene{
 		void clean();
 		void addObstacle(GameObject *obstacle);
 		void addPlayer(Player* player, bool selected);
+		void addKey(GameObject* key);
 	
 	private:
 		std::vector<Player*> players;
 		MenuItem* LevelbackButton = nullptr;
 		std::vector<GameObject*> obstacles;
 		std::vector<Player*>::iterator playerItr;
+		bool unlocked = false;
+		GameObject* key = nullptr;
+		GameObject* door = nullptr;
+		bool success = false;
 };

@@ -38,6 +38,12 @@ void LevelScene::update(float deltaTime){
 				(*playerItr)->fullCollision((*it)->getDestRect());
 				(*playerItr)->verticalCollision((*it)->getDestRect(), deltaTime);
 			}
+			if(key!=nullptr){
+				if( (*playerItr)->collisionDetection( key->getDestRect() ) ){
+					unlocked = true;
+					std::cout<<"key touched"<<std::endl;
+				}
+			}
 		}
 	}
 	
@@ -64,10 +70,14 @@ void LevelScene::render(){
 		(*playerItr)->render();
 	}
 	
+	if(key!=nullptr){	
+		//if(!unlocked)
+			key->render();	
+	}
+	
 	//std::cout<<"before render"<<std::endl;
 	LevelbackButton->render();
 	//std::cout<<"after render"<<std::endl;
-	
 	
 	SDL_RenderPresent(Game::renderer);
 }
@@ -261,9 +271,21 @@ void LevelScene::clean(){
 	obstacles.clear();
 	players.clear();
 	LevelbackButton->clean();
+	if(key!=nullptr){
+		key->clean();
+		delete(key);
+	}
 	std::cout<<"Level cleared"<<std::endl;
 }
 
 void LevelScene::addObstacle(GameObject *obstacle){
 	obstacles.push_back(obstacle);
 }
+
+void LevelScene::addKey(GameObject* key){
+	this->key = key;
+}
+
+
+
+

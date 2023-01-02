@@ -18,7 +18,7 @@ class Player : public GameObject {
 	void verticalCollision(SDL_FRect* rect, float deltaTime);
 	void jump();
 	bool boundsCollision();
-	bool collisionDetection();
+	bool collisionDetection(SDL_FRect* rect);
 	static int speed;
 	static float gravity;
 	void update(float deltaTime);

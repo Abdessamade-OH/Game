@@ -30,19 +30,22 @@ void Player::fullCollision(SDL_FRect* rect){
 				destRect.x = rect->x + rect->w;
 				//jumpSpeed = 0;
 		}
-			
-		/*if( (destRect.y + destRect.h >= rect->y ) &&
+		
+		
+		if( (destRect.y + destRect.h >= rect->y ) &&
 			(destRect.y + destRect.h < rect->y + rect->h) &&
 			(destRect.x + destRect.w > rect->x) &&
 			(destRect.x < rect->x + rect->w) &&
 			(velocity.y==1) ){
 				destRect.y = rect->y - destRect.h ;
-		}*/
+				
+		}
 		if( (destRect.y <= rect->y + rect->h +5) &&
 			(destRect.y > rect->y) &&
-			(destRect.x + destRect.w > rect->x + 6) &&
-			(destRect.x < rect->x + rect->w - 6) &&
-			(velocity.y==-1) ){
+			(destRect.x + destRect.w > rect->x + 7) &&
+			(destRect.x < rect->x + rect->w - 7) &&
+			(velocity.y==-1) &&
+			(airborn)){
 				destRect.y = rect->y + rect->h ;
 				jumpSpeed=100;
 				
@@ -90,7 +93,17 @@ bool Player::boundsCollision(){
 	return false;
 }
 
-bool Player::collisionDetection(){}
+
+bool Player::collisionDetection(SDL_FRect* rect){
+
+	if( (destRect.x + destRect.w >= rect->x) &&
+		(destRect.x <= rect->x + rect->w) &&
+		(destRect.y + destRect.h >= rect->y) &&
+		(destRect.y <= rect->y + rect->h) )
+		{
+			return true;
+		}
+}
 
 
 void Player::update(float deltaTime){

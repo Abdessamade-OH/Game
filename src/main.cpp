@@ -166,11 +166,14 @@ int main(int argc, char* argv[]){
 				GameObject* ground1 = new GameObject( 0, 600 - (12*4), 600, 12*4);
 				ground1->setSrcRect(0, 20, 64, 12);
 				
-				GameObject* ground2 = new GameObject( 500, 450, 300, 12*4);
+				GameObject* ground2 = new GameObject( 500, 400, 300, 12*4);
 				ground2->setSrcRect(0, 20, 64, 12);
 				
 				GameObject* ground3 = new GameObject( 100, 350, 300, 12*4);
 				ground3->setSrcRect(0, 20, 64, 12);
+				
+				GameObject* key = new GameObject( 100 + 150, 350 - 30, 15*2, 10*2);
+				key->setSrcRect(33, 32, 15, 10);
 				
 				/*GameObject* wall1 = new GameObject( 0, 0, 12, 600);
 				wall1->setSrcRect(86, 0, 12, 32);
@@ -181,8 +184,8 @@ int main(int argc, char* argv[]){
 				secondLevel->addObstacle(wall1);
 				secondLevel->addObstacle(wall2);*/
 				
-				Player* firstPlayer = new Player(float(380), float(300), 22*1.5, 28*1.5);
-				firstPlayer->setSrcRect(65, 0, 21, 28);	
+				Player* firstPlayer = new Player(float(380), float(300), 22*2, 28*2);
+				firstPlayer->setSrcRect(0, 32, 22, 28);	
 				
 				/*Player* secondPlayer = new Player(200, 300, 22*3, 28*3);
 				secondPlayer->setSrcRect(64, 0, 22, 28);*/			
@@ -191,6 +194,8 @@ int main(int argc, char* argv[]){
 				secondLevel->addObstacle(ground2);
 				secondLevel->addObstacle(ground3);
 				secondLevel->addPlayer(firstPlayer, true);
+				secondLevel->addKey(key);
+				
 				//secondLevel->addPlayer(secondPlayer, false);
 				/*I need to make a condition for if both are true, maybe if one true is found make all rest false and if no one is true, make the first true*/
 				
