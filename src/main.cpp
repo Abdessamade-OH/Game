@@ -175,28 +175,26 @@ int main(int argc, char* argv[]){
 				GameObject* key = new GameObject( 100 + 150, 350 - 30, 15*2, 10*2);
 				key->setSrcRect(33, 32, 15, 10);
 				
-				/*GameObject* wall1 = new GameObject( 0, 0, 12, 600);
-				wall1->setSrcRect(86, 0, 12, 32);
+				GameObject* door = new GameObject( 30, 600 - (12*4) - 37*4, 13*4, 37*4);
+				door->setSrcRect(48, 32, 13, 37);
 				
-				GameObject* wall2 = new GameObject( 800 - 12, 0, 12, 600);
-				wall2->setSrcRect(86, 0, 12, 32);
-				
-				secondLevel->addObstacle(wall1);
-				secondLevel->addObstacle(wall2);*/
 				
 				Player* firstPlayer = new Player(float(380), float(300), 22*2, 28*2);
 				firstPlayer->setSrcRect(0, 32, 22, 28);	
 				
-				/*Player* secondPlayer = new Player(200, 300, 22*3, 28*3);
-				secondPlayer->setSrcRect(64, 0, 22, 28);*/			
+				Player* secondPlayer = new Player(float(300), float(300), 22*2, 28*2);
+				secondPlayer->setSrcRect(0, 32, 22, 28);	
 				
 				secondLevel->addObstacle(ground1);
 				secondLevel->addObstacle(ground2);
 				secondLevel->addObstacle(ground3);
-				secondLevel->addPlayer(firstPlayer, true);
-				secondLevel->addKey(key);
 				
-				//secondLevel->addPlayer(secondPlayer, false);
+				secondLevel->addKey(key);
+				secondLevel->addDoor(door);
+				
+				secondLevel->addPlayer(firstPlayer, true);
+				secondLevel->addPlayer(secondPlayer, false);
+				
 				/*I need to make a condition for if both are true, maybe if one true is found make all rest false and if no one is true, make the first true*/
 				
 				while(secondLevel->running()){

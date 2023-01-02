@@ -40,6 +40,8 @@ class Player : public GameObject {
 	
 	Velocity beforeJumpVelocity = {0,0};
 	Velocity getVelocity(){return velocity;}
+	bool entered = false;
+	bool counted = false;
 	private:
 		
 		Velocity velocity = {0, 0};
@@ -47,5 +49,6 @@ class Player : public GameObject {
 		bool selected;
 		bool airborn = true;
 		float jumpSpeed = 0.0f;
+		
 		
 };
