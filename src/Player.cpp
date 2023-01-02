@@ -18,6 +18,9 @@ void Player::fullCollision(SDL_FRect* rect){
 			(destRect.y < rect->y + rect->h -5) &&
 			(velocity.x==1) ){
 				destRect.x = rect->x - destRect.w;
+				//jumpSpeed = 0;
+				beforeJumpVelocity.x = 0;
+				//ju
 		}
 		if( (destRect.x <= rect->x + rect->w) &&
 			(destRect.x > rect->x) &&
@@ -25,6 +28,7 @@ void Player::fullCollision(SDL_FRect* rect){
 			(destRect.y < rect->y + rect->h -5) &&
 			(velocity.x==-1) ){
 				destRect.x = rect->x + rect->w;
+				//jumpSpeed = 0;
 		}
 			
 		/*if( (destRect.y + destRect.h >= rect->y ) &&
@@ -34,10 +38,10 @@ void Player::fullCollision(SDL_FRect* rect){
 			(velocity.y==1) ){
 				destRect.y = rect->y - destRect.h ;
 		}*/
-		if( (destRect.y <= rect->y + rect->h ) &&
+		if( (destRect.y <= rect->y + rect->h +5) &&
 			(destRect.y > rect->y) &&
-			(destRect.x + destRect.w > rect->x + 5) &&
-			(destRect.x < rect->x + rect->w - 5) &&
+			(destRect.x + destRect.w > rect->x + 6) &&
+			(destRect.x < rect->x + rect->w - 6) &&
 			(velocity.y==-1) ){
 				destRect.y = rect->y + rect->h ;
 				jumpSpeed=100;
@@ -65,7 +69,7 @@ void Player::verticalCollision(SDL_FRect* rect, float deltaTime){
 			
 			//the solution to the key being released but in case player was comming of air, then make vel.x=0
 			if(airborn)
-				velocity.x = 0;
+				beforeJumpVelocity.x = 0;
 			//std::cout<<"hit obstacle"<<hitObstacle<<std::endl;
 		}
 		
@@ -95,7 +99,7 @@ void Player::update(float deltaTime){
 		destRect.x += velocity.x*speed*deltaTime;
 	else{
 		if(jumped)
-			destRect.x += velocity.x*speed*deltaTime*0.7;
+			destRect.x += beforeJumpVelocity.x*speed*deltaTime*0.7;
 		else
 			destRect.x += velocity.x*speed*deltaTime*0.1;
 	}

@@ -34,9 +34,12 @@ class Player : public GameObject {
 	void setJumpSpeed(float num){jumpSpeed = num;}
 	float getJumpSpeed(){return jumpSpeed;}
 	bool hitObstacle = false;
-	float JUMPSPEED = -600;
+	float JUMPSPEED = -500;
 	
 	bool jumped = false;
+	
+	Velocity beforeJumpVelocity = {0,0};
+	Velocity getVelocity(){return velocity;}
 	private:
 		
 		Velocity velocity = {0, 0};

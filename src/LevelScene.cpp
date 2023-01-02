@@ -140,6 +140,8 @@ void LevelScene::handleEvents(float deltaTime){
 									std::cout<<(*playerItr)->getJumpSpeed()<<std::endl;
 									
 									(*playerItr)->jumped = true;
+									
+									(*playerItr)->beforeJumpVelocity=(*playerItr)->getVelocity();
 								}
 							break;
 
@@ -182,17 +184,17 @@ void LevelScene::handleEvents(float deltaTime){
 							}break;*/
 							
 							case SDLK_1:{
-								if(players.size()>1){
+								//if(players.size()>1){
 									players[0]->setSelected(false);
 									players[1]->setSelected(true);
-								}
+								//}
 							}break;
 							
 							case SDLK_2:{
-								if(players.size()>1){
+								//if(players.size()>1){
 									players[1]->setSelected(false);
 									players[0]->setSelected(true);
-								}
+								//}
 							}break;
 
 							default:
@@ -209,18 +211,18 @@ void LevelScene::handleEvents(float deltaTime){
 							case SDLK_LEFT:
 							case SDLK_a:
 							case SDLK_q:
-								if( !(*playerItr)->isAirborn() ){
+								//if( !(*playerItr)->isAirborn() ){
 									(*playerItr)->setVelocityX(0);
 									(*playerItr)->dir = 3;
-								}
+								//}
 							break;
 
 							case SDLK_RIGHT:
 							case SDLK_d:
-								if( !(*playerItr)->isAirborn() ){
+								//if( !(*playerItr)->isAirborn() ){
 									(*playerItr)->setVelocityX(0);
 									(*playerItr)->dir = 4;
-								}
+								//}
 							break;
 						}
 					}
