@@ -39,9 +39,9 @@ int main(int argc, char* argv[]){
 				MenuScene* mainMenu = new MenuScene();
 				cout<<"Inside mainMenu"<<endl;
 				mainMenu->init("assets/MenuImage.png", 1);
-				MenuItem *startButton = new MenuItem(true, "Start", "assets/pixel font-7.ttf", 310, 240, 32*3, 20*3);
-				MenuItem *exitButton = new MenuItem(true, "Exit", "assets/pixel font-7.ttf", 310, 320, 32*3, 20*3);
-				MenuItem *menuTitle = new MenuItem(false, "Doors", "assets/pixel font-7.ttf", 304, 100, 32*4, 20*4);
+				MenuItem *startButton = new MenuItem(true, 0,"Start", "assets/pixel font-7.ttf", 310, 240, 32*3, 20*3);
+				MenuItem *exitButton = new MenuItem(true, 0,"Exit", "assets/pixel font-7.ttf", 310, 320, 32*3, 20*3);
+				MenuItem *menuTitle = new MenuItem(false, 0,"Doors", "assets/pixel font-7.ttf", 304, 100, 32*4, 20*4);
 				menuTitle->setSrcRect(32, 0, 32, 20);
 				startButton->setSrcRect(0, 0, 32, 20);
 				exitButton->setSrcRect(0, 0, 32, 20);
@@ -77,15 +77,15 @@ int main(int argc, char* argv[]){
 					MenuScene* levelsMenu = new MenuScene();
 					cout<<"Inside levelsMenu"<<endl;
 					levelsMenu->init("assets/MenuImage.png", 2);
-					MenuItem *menuTitle = new MenuItem(false, "Levels", "assets/pixel font-7.ttf", 800/2 - (32*2), 100, 32*4, 20*4);
+					MenuItem *menuTitle = new MenuItem(false, 0,"Levels", "assets/pixel font-7.ttf", 800/2 - (32*2), 100, 32*4, 20*4);
 					
-					MenuItem *firstLevelButton = new MenuItem(true, "1", "assets/pixel font-7.ttf", 800/3 - (32*2) , 100 + 32*4, 32*4, 20*4);
+					MenuItem *firstLevelButton = new MenuItem(true, 0,"1", "assets/pixel font-7.ttf", 800/3 - (32*2) , 100 + 32*4, 32*4, 20*4);
 					
-					MenuItem *secondLevelButton = new MenuItem(true, "2", "assets/pixel font-7.ttf",  800/2 - (32*2), 100 + 32*4, 32*4, 20*4);
+					MenuItem *secondLevelButton = new MenuItem(true, 0,"2", "assets/pixel font-7.ttf",  800/2 - (32*2), 100 + 32*4, 32*4, 20*4);
 					
-					MenuItem *thirdLevelButton = new MenuItem(true, "3", "assets/pixel font-7.ttf",  800/2 - (32*2) + 32*4+ 5, 100 + 32*4 , 32*4, 20*4);
+					MenuItem *thirdLevelButton = new MenuItem(true, 0,"3", "assets/pixel font-7.ttf",  800/2 - (32*2) + 32*4+ 5, 100 + 32*4 , 32*4, 20*4);
 					
-					MenuItem *backButton = new MenuItem(true, "Back", "assets/pixel font-7.ttf", 800/2 - (32*2), 100 + 32*4*2 + 20, 32*4, 20*4);
+					MenuItem *backButton = new MenuItem(true, 0,"Back", "assets/pixel font-7.ttf", 800/2 - (32*2), 100 + 32*4*2 + 20, 32*4, 20*4);
 					
 					menuTitle->setSrcRect(32, 0, 32, 20);
 					firstLevelButton->setSrcRect(0, 0, 32, 20);
@@ -172,22 +172,30 @@ int main(int argc, char* argv[]){
 				GameObject* ground3 = new GameObject( 100, 350, 300, 12*4);
 				ground3->setSrcRect(0, 20, 64, 12);
 				
+				GameObject* spike1 = new GameObject( 100 + 20, 350 - 16, 17*2, 8*2);
+				spike1->setSrcRect(0, 32, 17, 8);
+				GameObject* spike2 = new GameObject( 500 + 20, 400 - 16, 17*2, 8*2);
+				spike2->setSrcRect(0, 32, 17, 8);
+				
 				GameObject* key = new GameObject( 100 + 150, 350 - 30, 15*2, 10*2);
 				key->setSrcRect(33, 32, 15, 10);
-				
 				GameObject* door = new GameObject( 30, 600 - (12*4) - 37*4, 13*4, 37*4);
 				door->setSrcRect(48, 32, 13, 37);
 				
 				
+				
 				Player* firstPlayer = new Player(float(380), float(300), 22*2, 28*2);
-				firstPlayer->setSrcRect(0, 32, 22, 28);	
+				firstPlayer->setSrcRect(65, 0, 22, 28);	
 				
 				Player* secondPlayer = new Player(float(300), float(300), 22*2, 28*2);
-				secondPlayer->setSrcRect(0, 32, 22, 28);	
+				secondPlayer->setSrcRect(65, 28, 22, 28);	
 				
-				secondLevel->addObstacle(ground1);
-				secondLevel->addObstacle(ground2);
-				secondLevel->addObstacle(ground3);
+				secondLevel->addPlatform(ground1);
+				secondLevel->addPlatform(ground2);
+				secondLevel->addPlatform(ground3);
+				
+				secondLevel->addSpike(spike1);
+				secondLevel->addSpike(spike2);
 				
 				secondLevel->addKey(key);
 				secondLevel->addDoor(door);

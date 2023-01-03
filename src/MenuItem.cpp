@@ -4,7 +4,7 @@
 
 MenuItem::~MenuItem(){}
 
-MenuItem::MenuItem(bool buttonState, const char* text, const char* fontFile, /*const char* textureSheet,*/ float x, float y, int w, int h):GameObject(/*textureSheet,*/ x, y, w, h){
+MenuItem::MenuItem(bool buttonState, int color, const char* text, const char* fontFile, /*const char* textureSheet,*/ float x, float y, int w, int h):GameObject(/*textureSheet,*/ x, y, w, h){
 	this->text = text;
 	TTF_Init();
 	this->button = buttonState;
@@ -12,7 +12,7 @@ MenuItem::MenuItem(bool buttonState, const char* text, const char* fontFile, /*c
 	if( font==nullptr )
 		std::cout<<"TTF_OpenFont Error: "<<SDL_GetError()<<std::endl;
 	else{
-		textSurface = TTF_RenderText_Solid(font, text, textColor[0]);
+		textSurface = TTF_RenderText_Solid(font, text, textColor[color]);
 		if(textSurface==nullptr)
 			std::cout<<"TTF_RenderText_Solid Error: "<<SDL_GetError()<<std::endl;
 		else{

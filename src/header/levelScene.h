@@ -15,20 +15,31 @@ class LevelScene : public Scene{
 		void render();
 		void handleEvents(float deltaTime); 
 		void clean();
-		void addObstacle(GameObject *obstacle);
+		void addPlatform(GameObject *platform);
+		void addSpike(GameObject *spike);
 		void addPlayer(Player* player, bool selected);
 		void addKey(GameObject* key);
 		void addDoor(GameObject* door);
 	
 	private:
-		std::vector<Player*> players;
 		MenuItem* LevelbackButton = nullptr;
 		MenuItem* successButton = nullptr;
-		std::vector<GameObject*> obstacles;
+		MenuItem* lossButton = nullptr;
+		MenuItem* firstPlayerButton = nullptr;
+		MenuItem* secondPlayerButton = nullptr;
+		
+		std::vector<Player*> players;
+
+		std::vector<GameObject*> platforms;
+		std::vector<GameObject*> spikes;
+		
 		std::vector<Player*>::iterator playerItr;
+		std::vector<GameObject*>::iterator it;
+		
 		bool unlocked = false;
 		GameObject* key = nullptr;
 		GameObject* door = nullptr;
 		int success = 0;
 		int counter = 0;
+		bool isOver = false;
 };
