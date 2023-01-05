@@ -59,4 +59,10 @@ class LevelScene : public Scene{
 		bool buttonDown = false;
 		
 		GameScene selectedLevel;
+		
+		/*SDL_AudioSpec wavSpec;
+		Uint32 wavLength;
+		Uint8 *wavBuffer;
+		
+		SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);*/
 };

@@ -19,8 +19,7 @@ void Player::fullCollision(SDL_FRect* rect){
 			(velocity.x==1) ){
 				destRect.x = rect->x - destRect.w;
 				//jumpSpeed = 0;
-				//beforeJumpVelocity.x = 0;
-				//ju
+				//beforeJumpVelocity.x = 0; 
 		}
 		if( (destRect.x <= rect->x + rect->w + 5) &&
 			(destRect.x > rect->x) &&
@@ -29,6 +28,7 @@ void Player::fullCollision(SDL_FRect* rect){
 			(velocity.x==-1) ){
 				destRect.x = rect->x + rect->w;
 				//jumpSpeed = 0;
+				//beforeJumpVelocity.x = 0;
 		}
 		
 		
@@ -80,10 +80,6 @@ void Player::verticalCollision(SDL_FRect* rect, float deltaTime){
 
 
 
-void Player::jump(){
-
-}
-
 bool Player::boundsCollision(){
 	if(destRect.x + destRect.w >= 800)
 		destRect.x=800 - destRect.w;
@@ -98,10 +94,7 @@ bool Player::boundsCollision(){
 bool Player::collisionDetection(SDL_FRect* rect){
 	
 	
-	if( /*(rect->x + rect->w>= destRect.x) &&
-		(rect->x <= destRect.x + destRect.w) &&
-		(rect->y + rect->h >= destRect.y)&&
-		(rect->y <= destRect.y + destRect.h)*/
+	if( 
 		
 		(destRect.x + destRect.w >= rect->x) &&
 		(rect->x + rect->w >= destRect.x)&&
@@ -154,19 +147,3 @@ void Player::update(float deltaTime){
 }
 
 
-/*void Player::move(int dir, float deltaTime){
-	switch(dir){
-		case 0://up
-			this->destRect.y -= speed*deltaTime;
-		break;
-		case 1://down
-			this->destRect.y += speed*deltaTime;
-		break;
-		case 3://left
-			this->destRect.x -= speed*deltaTime;
-		break;
-		case 4://right
-			this->destRect.x += speed*deltaTime;
-		break;
-	}
-}*/

@@ -26,12 +26,6 @@ void MenuScene::render(){
 	SDL_RenderPresent(Game::renderer);
 }
 
-/*void MenuScene::init(const char* filename, int which){
-	this->which = which;
-	backgroundImage = TextureManager::LoadTexture(filename);
-	std::cout<<"background texture loaded"<<std::endl;
-	this->isRunning = true;
-}*/
 
 void MenuScene::addItem(MenuItem *item){
 	this->items.push_back(item);
@@ -73,17 +67,7 @@ void MenuScene::handleEvents(){
 				}
 			}break;
 			
-			/*case SDL_KEYDOWN:{
-				for(int i=0; i<items.size(); i++){
-					items[i]->setSelected(true);
-				}
-			}break;
-			case SDL_KEYUP:{
-				for(int i=0; i<items.size(); i++){
-					items[i]->setSelected(false);
-				}
-			}break;
-			*/
+			
 		case SDL_MOUSEBUTTONDOWN:{
 			if(this->which == 1){
 						if(items[1]->getSelected()){

@@ -31,6 +31,10 @@ LevelScene::LevelScene(){
 	lossTemp = nullptr;
 	player1Temp = nullptr;
 	player2Temp = nullptr;
+	
+	
+	//SDL_LoadWAV("assets/click.wav", &wavSpec, &wavBuffer, &wavLength);
+	
 }
 LevelScene::~LevelScene(){}
 
@@ -82,10 +86,7 @@ void LevelScene::update(float deltaTime){
 		if( (*playerItr)->getSelected() ){
 			if(!(*playerItr)->counted && (*playerItr)->boundsCollision())
 				isOver = true;
-			/*for(it=platforms.begin(); it!=platforms.end(); it++){
-				(*playerItr)->fullCollision((*it)->getDestRect());
-				(*playerItr)->verticalCollision((*it)->getDestRect(), deltaTime);
-			}*/
+			
 			
 			if(key!=nullptr && !unlocked){
 				if( (*playerItr)->collisionDetection( key->getDestRect()) ){
@@ -105,10 +106,6 @@ void LevelScene::update(float deltaTime){
 					//(*playerItr)->counted = false;
 				}
 					
-					
-					//std::cout<<success<<std::endl;
-					//std::cout<<players.size()<<std::endl;
-					//std::cout<<(*playerItr)->entered<<std::endl;
 			}
 			
 			if(button!=nullptr){
@@ -152,10 +149,7 @@ void LevelScene::update(float deltaTime){
 					buttonDown = false;
 				}
 			}
-			/*else{
-				std::cout<<"down"<<std::endl;
-				buttonDown = false;
-			}*/
+			
 		}
 		
 
@@ -287,7 +281,8 @@ void LevelScene::handleEvents(float deltaTime){
 				//if(this->which == 1){
 			
 				if(LevelbackButton->getSelected()){
-				
+					//int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
+					//SDL_PauseAudioDevice(deviceId, 0);
 					this->isRunning = false;
 					selectedScene = LEVELMENU;
 					break;
@@ -319,23 +314,14 @@ void LevelScene::handleEvents(float deltaTime){
 								}
 							break;
 
-							/*case SDLK_DOWN:
-							case SDLK_s:
-								(*playerItr)->setVelocityY(1);
-								(*playerItr)->setVelocityX(0);
-								(*playerItr)->dir = 1;
-								//destRect.y = ypos;
-							break;*/
-
 							case SDLK_LEFT:
 							case SDLK_a:
 							case SDLK_q:
 								std::cout<<"left"<<(*playerItr)->hitObstacle<<std::endl;
 								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted && !isOver){
 									(*playerItr)->setVelocityX(-1);
-									//(*playerItr)->setVelocityY(0);
+
 									(*playerItr)->dir = 3;
-									//destRect.x = xpos;
 									std::cout<<"move left"<<std::endl;
 								}
 								
@@ -350,9 +336,9 @@ void LevelScene::handleEvents(float deltaTime){
 							case SDLK_d:
 								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted && !isOver){
 									(*playerItr)->setVelocityX(1);
-									//(*playerItr)->setVelocityY(0);
+
 									(*playerItr)->dir = 4;
-									//destRect.x = xpos;
+
 								}
 								
 								if((*playerItr)->getJumpSpeed() >= -500 ){
@@ -362,10 +348,6 @@ void LevelScene::handleEvents(float deltaTime){
 								}
 							break;
 							
-							/*case SDLK_s:{
-								(*playerItr)->setSelected(false);
-								std::next((*playerItr))->setSelected(true);
-							}break;*/
 							
 							case SDLK_1:{
 								if(players.size()>1){
@@ -395,28 +377,26 @@ void LevelScene::handleEvents(float deltaTime){
 							case SDLK_LEFT:
 							case SDLK_a:
 							case SDLK_q:
-								//if( !(*playerItr)->isAirborn() ){
+
 									(*playerItr)->setVelocityX(0);
 									(*playerItr)->dir = 3;
-								//}
+							
 							break;
 
 							case SDLK_RIGHT:
 							case SDLK_d:
-								//if( !(*playerItr)->isAirborn() ){
+
 									(*playerItr)->setVelocityX(0);
 									(*playerItr)->dir = 4;
-								//}
+								
 							break;
 							
 							case SDLK_UP:
 							case SDLK_w:
 							case SDLK_z:
-								//if( !(*playerItr)->isAirborn() ){
-									//(*playerItr)->setVelocityX(0);
-									//(*playerItr)->dir = 4;
+								
 									(*playerItr)->setJumpSpeed(-(*playerItr)->JUMPSPEED/3);
-								//}
+								
 							break;
 						}
 					}

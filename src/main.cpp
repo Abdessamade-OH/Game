@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 	
 	
 	game = new Game();
-	game->init("game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
+	game->init("Doors", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, false);
 	float deltaTime = 0;
 	Scene::textureSheet = TextureManager::LoadTexture("assets/textureSheet.png");
 	while(game->running()){
@@ -125,54 +125,6 @@ int main(int argc, char* argv[]){
 				levelsMenu = nullptr;
 				}break;
 				
-			/*case FIRSTLEVEL:{
-				//int levelnum = levelMenu->selectedLevel;
-				//level[levelnum]->init();
-				
-				
-				LevelScene* firstLevel = new LevelScene();
-				firstLevel->init("assets/levelBackGround.png", 1);
-				cout<<"inside first level."<<endl;
-				
-				GameObject* ground = new GameObject( 0, 600 - (12*4), 600, 12*4);
-				ground->setSrcRect(0, 20, 64, 12);
-				firstLevel->addPlatform(ground);
-				
-				Player* firstPlayer1 = new Player(float(380), float(300), 22*2, 28*2);
-				firstPlayer1->setSrcRect(65, 0, 22, 28);	
-				
-				/*Player* secondPlayer1 = new Player(float(300), float(300), 22*2, 28*2);
-				secondPlayer1->setSrcRect(65, 28, 22, 28);*/
-				
-				//firstLevel->addPlayer(firstPlayer1, true);
-				//firstLevel->addPlayer(secondPlayer1, false);
-				
-				/*while(firstLevel->running()){
-					frameStart = SDL_GetTicks();
-					
-					firstLevel->update(deltaTime);
-					firstLevel->render();
-					firstLevel->handleEvents(deltaTime);
-					
-					frameTime = SDL_GetTicks() - frameStart;
-					
-					
-					//we delay by frameDelay minus the frame time
-					if(frameDelay>frameTime){
-						SDL_Delay(frameDelay - frameTime);
-					}
-					
-					deltaTime = (float)(SDL_GetTicks() - frameStart)/1000;
-					cout<<deltaTime<<endl;
-					
-				}
-				currentScene = firstLevel->getSelectedScene();
-				firstLevel->clean();
-				delete(firstLevel);
-				firstLevel = nullptr;
-				cout<<"FIRSTLEVEL out"<<endl;
-				}break;*/
-				
 			case FIRSTLEVEL:{
 				LevelScene* firstLevel = new LevelScene();
 				cout<<"inside first level."<<endl;
@@ -196,10 +148,7 @@ int main(int argc, char* argv[]){
 				spike11->setSrcRect(0, 32, 17, 8);
 				GameObject* spike21 = new GameObject( 300, 600 - (12*4) - 24, 17*3, 8*3);
 				spike21->setSrcRect(0, 32, 17, 8);
-				/*GameObject* spike21 = new GameObject( 500 + 20, 400 - 24, 17*3, 8*3);
-				spike21->setSrcRect(0, 32, 17, 8);
-				GameObject* fireWall1 = new GameObject( 500 + 180, 400 - 28*4, 11*4, 28*4);
-				fireWall1->setSrcRect(22, 32, 11, 28);*/
+				
 				GameObject* fireBall1 = new GameObject( 150, 290 , 10*3, 13*3);
 				fireBall1->setSrcRect(0, 40, 10, 13);
 				

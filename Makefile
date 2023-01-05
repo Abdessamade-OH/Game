@@ -1,4 +1,4 @@
-OBJS = bin/main.o bin/game.o bin/TextureManager.o bin/GameObject.o bin/Scene.o bin/menuScene.o bin/LevelScene.o bin/MenuItem.o bin/Player.o
+OBJS = bin/main.o bin/game.o bin/TextureManager.o bin/GameObject.o bin/Scene.o bin/menuScene.o bin/LevelScene.o bin/MenuItem.o bin/Player.o bin/Audio.o
 
 CC = g++
 
