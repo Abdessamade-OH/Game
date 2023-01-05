@@ -35,4 +35,6 @@ void Scene::init(const char* filename, int which){
 	std::cout<<filename<<std::endl;
 	this->isRunning = true;
 	
+	//clickEffect.load("assets/click.wav");
+	
 }

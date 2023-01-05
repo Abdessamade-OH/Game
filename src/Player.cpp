@@ -85,10 +85,10 @@ void Player::jump(){
 }
 
 bool Player::boundsCollision(){
-	if(destRect.x + destRect.w >= 800-20)
-		destRect.x=800-20 - destRect.w;
-	else if(destRect.x<=20)
-		destRect.x=20;
+	if(destRect.x + destRect.w >= 800)
+		destRect.x=800 - destRect.w;
+	else if(destRect.x<=0)
+		destRect.x=0;
 	if(destRect.y + destRect.h >600)
 		return true;
 	return false;
@@ -108,7 +108,9 @@ bool Player::collisionDetection(SDL_FRect* rect){
 		(destRect.y + destRect.h >= rect->y) &&
 		(rect->y + rect->h >= destRect.y)
 		 )
+		 
 		{
+			std::cout<<"touch"<<std::endl;
 			return true;
 		}
 	return false;

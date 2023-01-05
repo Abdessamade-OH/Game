@@ -38,6 +38,8 @@ bin/MenuItem.o:	src/MenuItem.cpp
 bin/Player.o:	src/Player.cpp
 	$(CC) -c src/Player.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/Player.o
 	
+bin/Audio.o: src/Audio.cpp
+	$(CC) -c src/Audio.cpp $(COMPILER_FLAGS) $(LINKER_FLAGS) -o bin/Audio.o
 
 	
 debug:

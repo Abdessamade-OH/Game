@@ -1,5 +1,6 @@
 #include "./header/levelScene.h"
 
+
 LevelScene::LevelScene(){
 	std::cout<<"test1"<<std::endl;
 	MenuItem* tempBack = new MenuItem(true, 0,"Back", "assets/pixel font-7.ttf", 20, 20, 32*2, 20*2);
@@ -35,34 +36,57 @@ LevelScene::~LevelScene(){}
 
 void LevelScene::update(float deltaTime){
 	//float x,y;
-	
-	
+	for(it=fireBalls.begin(); it!=fireBalls.end(); it++){
+		(*it)->update();
+	}
 	for(it=platforms.begin(); it!=platforms.end(); it++){
 		(*it)->update();
 	}
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 		(*playerItr)->update(deltaTime);
-		if((*playerItr)->isAirborn())
+		
+			if(button!=nullptr)
+			{
+				if( (*playerItr)->collisionDetection( button->getDestRect()) ){
+					std::cout<<"down"<<std::endl;
+					buttonDown = true;
+				}
+			}
 			//std::cout<<"airborn"<<std::endl;
 		for(it=spikes.begin(); it!=spikes.end(); it++){
 			if( (*playerItr)->collisionDetection( (*it)->getDestRect()) ){
 				std::cout<<"spike touch"<<std::endl;
-				isOver=true;
-				lossButton->render();
-				//counter++;
-				//if(counter>5000*deltaTime){
-					this->isRunning = false;
-					selectedScene = LEVELMENU;
-				//}
+				isOver = true;
+				//selectedScene = LEVELMENU;
+				//isRunning=false;
 			}
 		}
+		for(it=fireBalls.begin(); it!=fireBalls.end(); it++){
+			if( (*playerItr)->collisionDetection( (*it)->getDestRect()) ){
+				std::cout<<"fireBall touch"<<std::endl;
+				isOver = true;
+			}
+		}
+		if(button!=nullptr){
+			for(it=fireWalls.begin(); it!=fireWalls.end(); it++){
+				if( (*playerItr)->collisionDetection( (*it)->getDestRect()) && !buttonDown){
+					std::cout<<"fireWall touch"<<std::endl;
+					isOver = true;
+				}
+			}
+		}
+		
+		
+		
+		
 		if( (*playerItr)->getSelected() ){
-			isOver = (*playerItr)->boundsCollision();
-			
+			if(!(*playerItr)->counted && (*playerItr)->boundsCollision())
+				isOver = true;
 			/*for(it=platforms.begin(); it!=platforms.end(); it++){
 				(*playerItr)->fullCollision((*it)->getDestRect());
 				(*playerItr)->verticalCollision((*it)->getDestRect(), deltaTime);
 			}*/
+			
 			if(key!=nullptr && !unlocked){
 				if( (*playerItr)->collisionDetection( key->getDestRect()) ){
 					
@@ -86,6 +110,12 @@ void LevelScene::update(float deltaTime){
 					//std::cout<<players.size()<<std::endl;
 					//std::cout<<(*playerItr)->entered<<std::endl;
 			}
+			
+			if(button!=nullptr){
+				if( (*playerItr)->collisionDetection( button->getDestRect()) )
+					std::cout<<"button touched"<<std::endl;
+			}
+			
 		}
 		
 	}
@@ -115,6 +145,17 @@ void LevelScene::update(float deltaTime){
 				players[1]->fullCollision(players[0]->getDestRect());
 				players[1]->verticalCollision(players[0]->getDestRect(), deltaTime);
 			}
+			
+			if(button!=nullptr){
+				if( !(players[0]->collisionDetection( button->getDestRect()) || players[1]->collisionDetection( button->getDestRect()) )){
+					std::cout<<"not down"<<std::endl;
+					buttonDown = false;
+				}
+			}
+			/*else{
+				std::cout<<"down"<<std::endl;
+				buttonDown = false;
+			}*/
 		}
 		
 
@@ -130,9 +171,13 @@ void LevelScene::update(float deltaTime){
 		}
 	}
 	
-	if ( isOver==true ){
-		selectedScene = LEVELMENU;
-		isRunning=false;
+	if ( isOver){
+		std::cout<<"LOSS"<<std::endl;
+		counter++;
+		if(counter>5000*deltaTime){
+			this->isRunning = false;
+			selectedScene = selectedLevel;
+		}
 	}
 	
 	//std::cout<<"before update"<<std::endl;
@@ -148,16 +193,24 @@ void LevelScene::render(){
 	for(it=platforms.begin(); it!=platforms.end(); it++){
 		(*it)->render();
 	}
+	for(it=fireBalls.begin(); it!=fireBalls.end(); it++){
+		(*it)->render();
+	}
 	for(it=spikes.begin(); it!=spikes.end(); it++){
 		(*it)->render();
 	}
+	for(it=fireWalls.begin(); it!=fireWalls.end(); it++){
+		if(!buttonDown)
+			(*it)->render();
+	}
 	
-	if(door!=nullptr){
-		door->render();
+	
+	if(button!=nullptr){
+		button->render();
 	}
 	
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
-		if(!(*playerItr)->counted)
+		if(!(*playerItr)->counted && !isOver)
 			(*playerItr)->render();
 	}
 	
@@ -165,11 +218,18 @@ void LevelScene::render(){
 			key->render();	
 	}
 	
+	if(door!=nullptr){
+		door->render();
+	}
+	
 	
 	if(success == players.size()){
 		successButton->render();
 		//SDL_Delay(2000);	
 	}
+	
+	if(isOver)
+		lossButton->render();
 	
 	//std::cout<<"before render"<<std::endl;
 	LevelbackButton->render();
@@ -227,6 +287,7 @@ void LevelScene::handleEvents(float deltaTime){
 				//if(this->which == 1){
 			
 				if(LevelbackButton->getSelected()){
+				
 					this->isRunning = false;
 					selectedScene = LEVELMENU;
 					break;
@@ -243,7 +304,7 @@ void LevelScene::handleEvents(float deltaTime){
 							case SDLK_UP:
 							case SDLK_w:
 							case SDLK_z:
-								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted){
+								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted && !isOver){
 									//(*playerItr)->setVelocityY(-1);
 									//(*playerItr)->hitObstacle = false;
 									(*playerItr)->setVelocityY(-1);
@@ -270,7 +331,7 @@ void LevelScene::handleEvents(float deltaTime){
 							case SDLK_a:
 							case SDLK_q:
 								std::cout<<"left"<<(*playerItr)->hitObstacle<<std::endl;
-								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted){
+								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted && !isOver){
 									(*playerItr)->setVelocityX(-1);
 									//(*playerItr)->setVelocityY(0);
 									(*playerItr)->dir = 3;
@@ -287,7 +348,7 @@ void LevelScene::handleEvents(float deltaTime){
 
 							case SDLK_RIGHT:
 							case SDLK_d:
-								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted){
+								if(!(*playerItr)->isAirborn() && !(*playerItr)->counted && !isOver){
 									(*playerItr)->setVelocityX(1);
 									//(*playerItr)->setVelocityY(0);
 									(*playerItr)->dir = 4;
@@ -389,6 +450,11 @@ void LevelScene::clean(){
 		delete(*it);
 	}
 	
+	for(it=fireWalls.begin(); it!=fireWalls.end(); it++){
+		(*it)->clean();
+		delete(*it);
+	}
+	
 	for(playerItr=players.begin(); playerItr!=players.end(); playerItr++){
 		(*playerItr)->clean();
 		delete(*playerItr);
@@ -413,6 +479,10 @@ void LevelScene::clean(){
 		door->clean();
 		delete(door);
 	}
+	if(button!=nullptr){
+		button->clean();
+		delete(button);
+	}
 	std::cout<<"Level cleared"<<std::endl;
 }
 
@@ -432,6 +502,18 @@ void LevelScene::addDoor(GameObject* door){
 	this->door = door;
 }
 
+void LevelScene::addButton(GameObject* button){
+	this->button = button;
+}
 
+void LevelScene::addfireWall(GameObject* fireWall){
+	fireWalls.push_back(fireWall);
+}
 
+void LevelScene::addfireBall(GameObject* fireBall){
+	fireBalls.push_back(fireBall);
+}
 
+void LevelScene::setLevel(GameScene level){
+	this->selectedLevel = level;
+}
